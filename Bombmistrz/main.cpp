@@ -1,6 +1,6 @@
 #include "Header.h"
 
-int main(int, char**) {
+int main(int __arg0, char** __arg1) {
 	sf::RenderWindow window(sf::VideoMode(400, 400), "Hello Grzesiek !");
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
@@ -18,6 +18,6 @@ int main(int, char**) {
 		window.draw(shape);
 		window.display();
 	}
-
+	
 	return 0;
 }
