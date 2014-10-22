@@ -1,1 +1,1 @@
-Pliki graficzne do Bombermistrza
+Pliki graficzne do Bombmistrza
