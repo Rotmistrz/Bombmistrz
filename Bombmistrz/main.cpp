@@ -13,7 +13,7 @@ int main(int __arg0, char** __arg1) {
 	settings.antialiasingLevel = 4;
 	//tworzenie okienka
 	sf::Window window(
-		sf::VideoMode(static_cast<uint>(width), static_cast<uint>(hight)),
+		sf::VideoMode(sf::VideoMode(static_cast<uint>(width), static_cast<uint>(hight), 32)),
 		"OpenGL",
 		sf::Style::Titlebar | sf::Style::Close, settings);
 
@@ -22,7 +22,7 @@ int main(int __arg0, char** __arg1) {
 
 	Vertex2f v1  { -0.5, 0.5 };
 	Vertex2f v2 { 0.5, -0.5 };
-	Vertex3f v3 { 1.0, .5, 0.5 };
+	Vertex3f v3{ 1.0f, 0.0f, 0.0 };
 	Player p(v1, v2, v3, 1);
 	std::vector<Player> v;
 	v.push_back(p);
@@ -47,3 +47,4 @@ int main(int __arg0, char** __arg1) {
 	
 	return 0;
 }
+

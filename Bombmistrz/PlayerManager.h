@@ -21,9 +21,9 @@ public:
 	void genVertexBuffer();
 	void setLayout();
 	void LoadAndcompileShaders();
-	inline GLuint getVertexBufferId() {
-		return vertexBufferId;
-	}
+//	inline GLuint getVertexBufferId() {
+//		return vertexBufferId;
+//	}
 	
 	void draw();
 };
