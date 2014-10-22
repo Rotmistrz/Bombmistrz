@@ -1,1 +1,1 @@
-Miejsce dla Grzecha.
+Pliki graficzne do Bombermistrza
