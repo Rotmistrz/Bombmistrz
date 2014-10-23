@@ -20,12 +20,17 @@ int main(int __arg0, char** __arg1) {
 	glewExperimental = GL_TRUE;
 	glewInit();
 
-	Vertex2f v1  { -0.5, 0.5 };
-	Vertex2f v2 { 0.5, -0.5 };
+	Vertex2f v1  { -1.0, 1.0 };
+	Vertex2f v2 { 0.0, 0.0 };
 	Vertex3f v3{ 1.0f, 0.0f, 0.0 };
-	Player p(v1, v2, v3, 1);
+	Player p(v1, v2, v3);
+	Vertex2f v11{ 0.0, 0.0 };
+	Vertex2f v22{ 1.0, -1.0 };
+	Vertex3f v33{ 1.0f, 0.0f, 0.0 };
+	Player p2(v11, v22, v33);
 	std::vector<Player> v;
 	v.push_back(p);
+	v.push_back(p2);
 	PlayerManager pm(&v);
 	pm.genVertexBuffer();
 	pm.LoadAndcompileShaders();
@@ -40,7 +45,7 @@ int main(int __arg0, char** __arg1) {
 		}
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		pm.draw();
+		pm.drawAll();
 		window.display();
 		
 	}

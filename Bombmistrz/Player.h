@@ -30,9 +30,9 @@ public:
 	* arg3 = kolor - rgb - float
 	* arg4 = dlugosc boku kwadratu
 	*/
-	Player(Vertex2f, Vertex2f, Vertex3f, float);
+	Player(Vertex2f, Vertex2f, Vertex3f);
 	~Player();
 
-
+	std::vector<float> giveFloatVec();
 };
 
