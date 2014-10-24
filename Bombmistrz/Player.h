@@ -24,6 +24,9 @@ public:
 	Vertex2f xy2;
 	Vertex2f xy4;
 	float side;
+
+	Vertex2f translate{ 0.f, 0.f };
+	float speed;
 	/*
 	* arg1 = wierzcholek p1
 	* arg2 = wierzcholek p3
@@ -34,5 +37,14 @@ public:
 	~Player();
 
 	std::vector<float> giveFloatVec();
+
+	//ruch
+	void moveRight(clock_t&);
+	void moveLeft(clock_t&);
+	void moveUp(clock_t&);
+	void moveDown(clock_t&);
+	inline Vertex2f getTranslation() {
+		return translate;
+	}
 };
 

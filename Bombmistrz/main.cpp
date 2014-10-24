@@ -42,6 +42,22 @@ int main(int __arg0, char** __arg1) {
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			else
+			if (event.KeyPressed == sf::Keyboard::W) {
+
+			}
+			else
+			if (event.KeyPressed == sf::Keyboard::S) {
+
+			}
+			else
+			if (event.KeyPressed == sf::Keyboard::A) {
+
+			}
+			else
+			if (event.KeyPressed == sf::Keyboard::D) {
+
+			}
 		}
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
