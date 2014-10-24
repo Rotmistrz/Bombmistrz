@@ -36,32 +36,35 @@ int main(int __arg0, char** __arg1) {
 	pm.LoadAndcompileShaders();
 	pm.setLayout();
 
+	clock_t time = clock();
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-			else
-			if (event.KeyPressed == sf::Keyboard::W) {
-
-			}
-			else
-			if (event.KeyPressed == sf::Keyboard::S) {
-
-			}
-			else
-			if (event.KeyPressed == sf::Keyboard::A) {
-
-			}
-			else
-			if (event.KeyPressed == sf::Keyboard::D) {
-
-			}
 		}
+		
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			time = clock_t();
+			p.moveLeft(time);
+		}
+		else
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			p.moveRight(time);
+		}
+		else
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+			p.moveUp(time);
+		}
+		else
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+			p.moveDown(time);
+		}
+
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		pm.drawAll();
+		pm.draw(1);
 		window.display();
 		
 	}

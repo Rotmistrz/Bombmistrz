@@ -25,8 +25,8 @@ public:
 	Vertex2f xy4;
 	float side;
 
-	Vertex2f translate{ 0.f, 0.f };
-	float speed;
+	Vertex2f translate;
+	float speed = 10;
 	/*
 	* arg1 = wierzcholek p1
 	* arg2 = wierzcholek p3

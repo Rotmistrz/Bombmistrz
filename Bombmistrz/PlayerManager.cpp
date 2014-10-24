@@ -4,10 +4,11 @@ const GLchar* vertexSource =
 "#version 150 core\n"
 "in vec2 position;"
 "in vec3 color;"
+"uniform vec2 translation;"
 "out vec3 Color;"
 "void main() {"
 "   Color = color;"
-"   gl_Position = vec4(position, 0.0, 1.0);"
+"   gl_Position = vec4(position, 0.0, 1.0) + vec4(translation, 0.0, 0.0);"
 "}";
 const GLchar* fragmentSource =
 "#version 150 core\n"
@@ -83,6 +84,12 @@ void PlayerManager::setLayout() {
 void PlayerManager::draw(uint __number) {
 	//numer gracza musi byc wiekszy niz 0 !
 	assert(__number > 0);
+	Vertex2f _uniform;
+	GLuint _uniform_vec2 = glGetUniformLocation(shaderProgram, "translation");
+	
+	_uniform = (*vec)[__number - 1].getTranslation();
+	glUniform2f(_uniform_vec2, _uniform.x, _uniform.y);
+
 	glDrawArrays(
 		GL_POLYGON, 
 		4 * (__number-1), 

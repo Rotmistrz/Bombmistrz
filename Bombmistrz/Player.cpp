@@ -13,6 +13,9 @@ Player::Player(
 	xy2.y = xy1.y;
 	xy4.x = xy1.x;
 	xy4.y = xy3.y;
+
+	translate.x = .0f;
+	translate.y = .0f;
 }
 
 Player::~Player() {
@@ -37,6 +40,7 @@ void Player::moveRight(clock_t& __actual_t) {
 void Player::moveLeft(clock_t& __actual_t) {
 	clock_t delta = clock() - __actual_t;
 	delta = delta * speed;
+	delta /= CLOCKS_PER_SEC;
 	translate.x -= static_cast<float>(delta);
 }
 
