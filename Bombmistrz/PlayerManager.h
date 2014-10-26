@@ -12,6 +12,7 @@ class PlayerManager {
 	GLuint posAttrib;
 	GLuint colAttrib;
 
+	GLuint _uniform_vec2;
 	std::vector<Player>* vec;
 	std::vector<float> corVec;
 public:
@@ -27,5 +28,7 @@ public:
 	
 	void draw(uint);
 	void drawAll();
+
+	Player* getPlayer(uint);
 };
 

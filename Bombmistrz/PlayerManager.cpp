@@ -4,11 +4,11 @@ const GLchar* vertexSource =
 "#version 150 core\n"
 "in vec2 position;"
 "in vec3 color;"
-"uniform vec2 translation;"
 "out vec3 Color;"
+"uniform vec2 translation;"
 "void main() {"
 "   Color = color;"
-"   gl_Position = vec4(position, 0.0, 1.0) + vec4(translation, 0.0, 0.0);"
+"   gl_Position = vec4(position.x+translation.x, position.y+translation.y, 0.0, 1.0);"
 "}";
 const GLchar* fragmentSource =
 "#version 150 core\n"
@@ -78,22 +78,26 @@ void PlayerManager::setLayout() {
 	 colAttrib = glGetAttribLocation(shaderProgram, "color");
 	glEnableVertexAttribArray(colAttrib);
 	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
-	
+
+	_uniform_vec2 = glGetUniformLocation(shaderProgram, "translation");
 }
 
 void PlayerManager::draw(uint __number) {
 	//numer gracza musi byc wiekszy niz 0 !
 	assert(__number > 0);
 	Vertex2f _uniform;
-	GLuint _uniform_vec2 = glGetUniformLocation(shaderProgram, "translation");
 	
-	_uniform = (*vec)[__number - 1].getTranslation();
+	_uniform = (*vec)[__number - 1].translate;
 	glUniform2f(_uniform_vec2, _uniform.x, _uniform.y);
-
+	_uniform.x = .0f;
+	_uniform.y = .0f;
+	
 	glDrawArrays(
 		GL_POLYGON, 
 		4 * (__number-1), 
-		4 * __number);
+		4);
+
+	
 }
 
 void PlayerManager::drawAll() {
@@ -102,6 +106,17 @@ void PlayerManager::drawAll() {
 		glDrawArrays(
 			GL_POLYGON,
 			4 * i,
-			4 * (i + 1));
+			4);
 	}
+}
+
+Player* PlayerManager::getPlayer(uint __number)	{
+	assert(__number > 0);
+	uint i = 0;
+	for (; i < vec->size(); i++) {
+		if (i == __number - 1)
+			return &((*vec)[i]);
+	}
+
+	return nullptr;
 }

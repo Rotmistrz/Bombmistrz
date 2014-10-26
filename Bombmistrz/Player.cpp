@@ -30,28 +30,3 @@ std::vector<float> Player::giveFloatVec() {
 			xy4.x, xy4.y, color.x, color.y, color.z,
 		};
 }
-
-void Player::moveRight(clock_t& __actual_t) {
-	clock_t delta = clock() - __actual_t;
-	delta = delta * speed;
-	translate.x += static_cast<float>(delta);
-}
-
-void Player::moveLeft(clock_t& __actual_t) {
-	clock_t delta = clock() - __actual_t;
-	delta = delta * speed;
-	delta /= CLOCKS_PER_SEC;
-	translate.x -= static_cast<float>(delta);
-}
-
-void Player::moveUp(clock_t& __actual_t) {
-	clock_t delta = clock() - __actual_t;
-	delta = delta * speed;
-	translate.y += static_cast<float>(delta);
-}
-
-void Player::moveDown(clock_t& __actual_t) {
-	clock_t delta = clock() - __actual_t;
-	delta = delta * speed;
-	translate.y -= static_cast<float>(delta);
-}

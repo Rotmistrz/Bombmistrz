@@ -26,7 +26,7 @@ public:
 	float side;
 
 	Vertex2f translate;
-	float speed = 10;
+	float speed = 1;
 	/*
 	* arg1 = wierzcholek p1
 	* arg2 = wierzcholek p3
@@ -39,10 +39,18 @@ public:
 	std::vector<float> giveFloatVec();
 
 	//ruch
-	void moveRight(clock_t&);
-	void moveLeft(clock_t&);
-	void moveUp(clock_t&);
-	void moveDown(clock_t&);
+	inline void moveRight(float __dt) {
+		translate.x += __dt * speed;
+	}
+	inline void moveLeft(float __dt) {
+		translate.x -= __dt * speed;
+	}
+	inline void moveUp(float __dt) {
+		translate.y += __dt * speed;
+	}
+	inline void moveDown(float __dt) {
+		translate.y -= __dt * speed;
+	}
 	inline Vertex2f getTranslation() {
 		return translate;
 	}

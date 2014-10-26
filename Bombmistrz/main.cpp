@@ -5,7 +5,6 @@ float width = 800;
 float hight = 600;
 
 int main(int __arg0, char** __arg1) {
-	
 	//ustawienie kontekstu w specjalnej strukturze
 	sf::ContextSettings settings;
 	settings.depthBits = 24;
@@ -21,12 +20,12 @@ int main(int __arg0, char** __arg1) {
 	glewInit();
 
 	Vertex2f v1  { -1.0, 1.0 };
-	Vertex2f v2 { 0.0, 0.0 };
+	Vertex2f v2 { -0.9, 0.9 };
 	Vertex3f v3{ 1.0f, 0.0f, 0.0 };
 	Player p(v1, v2, v3);
-	Vertex2f v11{ 0.0, 0.0 };
+	Vertex2f v11{ 0.9, -0.9 };
 	Vertex2f v22{ 1.0, -1.0 };
-	Vertex3f v33{ 1.0f, 0.0f, 0.0 };
+	Vertex3f v33{ 1.0f, 1.0f, 0.0 };
 	Player p2(v11, v22, v33);
 	std::vector<Player> v;
 	v.push_back(p);
@@ -36,8 +35,11 @@ int main(int __arg0, char** __arg1) {
 	pm.LoadAndcompileShaders();
 	pm.setLayout();
 
-	clock_t time = clock();
+	sf::Clock clock;
 	while (window.isOpen()) {
+		float elapsed_time = static_cast<float>(clock.getElapsedTime().asSeconds());
+		clock.restart();
+
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -45,26 +47,43 @@ int main(int __arg0, char** __arg1) {
 				window.close();
 		}
 		
+		//logika klawiatura - strzalki
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			time = clock_t();
-			p.moveLeft(time);
+			pm.getPlayer(1)->moveLeft(elapsed_time);
 		}
-		else
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			p.moveRight(time);
+			pm.getPlayer(1)->moveRight(elapsed_time);
 		}
-		else
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-			p.moveUp(time);
+			pm.getPlayer(1)->moveUp(elapsed_time);
 		}
-		else
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-			p.moveDown(time);
+			pm.getPlayer(1)->moveDown(elapsed_time);
+		}
+		
+		//logika klawiatura - wsad
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+			pm.getPlayer(2)->moveUp(elapsed_time);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+			pm.getPlayer(2)->moveDown(elapsed_time);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+			pm.getPlayer(2)->moveLeft(elapsed_time);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+			pm.getPlayer(2)->moveRight(elapsed_time);
 		}
 
+		//wyczysczenie bufora na kolor czarny
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		//renderowanie pierwszego gracza
 		pm.draw(1);
+		//renderowanie drugiego gracza
+		pm.draw(2);
+		//zamiana buforow -> pokazanie obrazu w okienku
 		window.display();
 		
 	}
