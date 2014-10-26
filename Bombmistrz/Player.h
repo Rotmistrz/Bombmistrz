@@ -38,6 +38,14 @@ public:
 
 	std::vector<float> giveFloatVec();
 
+
+	inline void setSpeed(float __s) {
+		speed = __s;
+	}
+	inline float getSpeed() {
+		return speed; 
+	}
+
 	//ruch
 	inline void moveRight(float __dt) {
 		translate.x += __dt * speed;

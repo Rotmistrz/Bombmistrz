@@ -8,6 +8,10 @@ class PlayerManager {
 	GLuint vertexShader;
 	GLuint fragmentShader;
 	GLuint shaderProgram;
+	GLchar* vertSource = nullptr;
+	GLchar* fragSource = nullptr;
+	uint sizeVS = 0;
+	uint sizeFS = 0;
 
 	GLuint posAttrib;
 	GLuint colAttrib;
@@ -19,6 +23,9 @@ public:
 	PlayerManager(std::vector<Player>*);
 	~PlayerManager();
 
+	GLchar* loadShader(
+		const std::string&, 
+		uint&);
 	void genVertexBuffer();
 	void setLayout();
 	void LoadAndcompileShaders();

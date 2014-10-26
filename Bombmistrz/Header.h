@@ -4,6 +4,8 @@
 #include "Player.h"
 #include <assert.h>
 #include <time.h>
+#include <string>
+#include <fstream>
 
 typedef unsigned int uint;
 

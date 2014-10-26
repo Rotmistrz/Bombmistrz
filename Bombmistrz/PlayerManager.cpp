@@ -1,23 +1,5 @@
 #include "PlayerManager.h"
 
-const GLchar* vertexSource =
-"#version 150 core\n"
-"in vec2 position;"
-"in vec3 color;"
-"out vec3 Color;"
-"uniform vec2 translation;"
-"void main() {"
-"   Color = color;"
-"   gl_Position = vec4(position.x+translation.x, position.y+translation.y, 0.0, 1.0);"
-"}";
-const GLchar* fragmentSource =
-"#version 150 core\n"
-"in vec3 Color;"
-"out vec4 outColor;"
-"void main() {"
-"   outColor = vec4(Color, 1.0);"
-"}";
-
 PlayerManager::PlayerManager(std::vector<Player>* __vec) {
 	vec = new std::vector<Player>(*__vec);
 
@@ -31,6 +13,57 @@ PlayerManager::PlayerManager(std::vector<Player>* __vec) {
 
 PlayerManager::~PlayerManager() {
 	glDeleteBuffers(1, &vertexBufferId);
+
+	glUseProgram(0);
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDetachShader(shaderProgram, vertexShader);
+	glDetachShader(shaderProgram, fragmentShader);
+	glDeleteProgram(shaderProgram);
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+}
+
+GLchar* PlayerManager::loadShader(
+	const std::string& __file_name, 
+	uint& __size) {
+
+	//stworzenie strumienia wejscia
+	std::ifstream _input_file;
+	//otwarcie pliku o nazwie __file_name
+	_input_file.open(__file_name);
+	//sprawdzenie czy mozna otworzyc plik
+	if (!_input_file.is_open())
+		return nullptr;
+
+	bool first = true;
+	std::string _result("");
+	while (!_input_file.eof()) {
+		std::string _temp("");
+		std::getline(_input_file, _temp);
+		//wczytaj linie. Nastepnie dodaj do lancucha wyjsciowego
+		//rob tak az nie dojdziesz do konca pliku
+		_result += _temp;
+		_result += "\n";
+
+		//obsluga podstawowych bledow
+		if (_input_file.bad()) {
+			std::cerr << "wystapil blad sprzetowy!";
+			return nullptr;
+		}
+		if (_input_file.fail()) {
+			std::cerr << "blad podczas wczytywania!";
+			return nullptr;
+		}
+	}
+
+	//zmien stringa na wskaznik na chary i zwroc go w argumencie
+	GLchar* _res_tab = new GLchar[_result.size()];
+	for (uint i = 0; i < _result.size(); i++)
+		_res_tab[i] = _result[i];
+
+	__size = _result.size();
+	return _res_tab;
 }
 
 void PlayerManager::genVertexBuffer() {
@@ -41,7 +74,6 @@ void PlayerManager::genVertexBuffer() {
 	//tworze bufor na kordynaty graczy
 	glGenBuffers(1, &vertexBufferId);
 
-
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferId);
 	//bufor typu tablica
 	//wielkosc
@@ -51,13 +83,18 @@ void PlayerManager::genVertexBuffer() {
 }
 
 void PlayerManager::LoadAndcompileShaders() {
+	if (!(vertSource = loadShader("vertexShaderPlayer.vert", sizeVS)))
+		std::cerr << "Nie mozna wczytac vertex shadera!\n";
+	if (!(fragSource = loadShader("fragmentShaderPlayer.frag", sizeFS)))
+		std::cerr << "Nie mozna wczytac fragment shadera!\n";
+
 	//tworze vertex shader i kompiluje
 	 vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexSource, NULL);
+	glShaderSource(vertexShader, 1, &vertSource, NULL);
 	glCompileShader(vertexShader);
 	//frag + kompilacja
 	 fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
+	glShaderSource(fragmentShader, 1, &fragSource, NULL);
 	glCompileShader(fragmentShader);
 	//tworze caly program shaderowy + link + use
 	shaderProgram = glCreateProgram();
@@ -96,8 +133,6 @@ void PlayerManager::draw(uint __number) {
 		GL_POLYGON, 
 		4 * (__number-1), 
 		4);
-
-	
 }
 
 void PlayerManager::drawAll() {
