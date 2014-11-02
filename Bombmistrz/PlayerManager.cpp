@@ -92,10 +92,49 @@ void PlayerManager::LoadAndcompileShaders() {
 	 vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertSource, NULL);
 	glCompileShader(vertexShader);
+
 	//frag + kompilacja
 	 fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragSource, NULL);
 	glCompileShader(fragmentShader);
+
+
+	//testujemy czy sie skompilowalo etc
+	auto _to_file = [](GLchar* __tab, GLuint __size, std::string __name)->bool {
+		std::ofstream _file;
+		_file.open(__name);
+
+		if (!_file.is_open()) {
+			MessageBox(0, "Nie mozna utworzyc pliku zapisu info log shadera !", 0, 0);
+			return false;
+		}
+
+		for (uint i = 0; i < __size; i++) {
+			_file << __tab[i];
+			_file.flush();
+		}
+
+		_file.close();
+		return true;
+	};
+
+	GLint _v_status, _f_status;
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &_v_status);
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &_f_status);
+
+	//info log kompilacji	
+	GLchar _v_buffer[512];
+	glGetShaderInfoLog(vertexShader, 512, NULL, _v_buffer);
+	GLchar _f_buffer[512];
+	glGetShaderInfoLog(fragmentShader, 512, NULL, _f_buffer);
+
+	_to_file(_f_buffer, 512, "fragLog.txt");
+	_to_file(_v_buffer, 512, "vertexLog.txt");
+	if (!_v_status)
+		MessageBox(0, "Nie mozna skompilowac vertex shadera!", 0, 0);
+	if (!_f_status)
+		MessageBox(0, "Nie mozna skompilowac fragment shadera!", 0, 0);
+
 	//tworze caly program shaderowy + link + use
 	shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);

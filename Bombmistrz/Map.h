@@ -11,6 +11,5 @@ public:
 	~Map();
 
 	bool loadMap(const std::string&);
-
 };
 

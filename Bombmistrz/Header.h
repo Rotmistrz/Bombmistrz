@@ -6,6 +6,7 @@
 #include <time.h>
 #include <string>
 #include <fstream>
+#include <Windows.h>
 
 typedef unsigned int uint;
 
