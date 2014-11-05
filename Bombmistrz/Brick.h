@@ -1,9 +1,10 @@
 #pragma once
-#include "Header.h"
+#include "Square.h"
 
-class Brick {
+class Brick: public Square {
+
 public:
-	Brick();
+	Brick(Vertex2f, Vertex2f, Vertex3f);
 	~Brick();
 };
 

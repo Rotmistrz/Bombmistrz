@@ -12,7 +12,7 @@ PlayerManager::PlayerManager(std::vector<Player>* __vec) {
 }
 
 PlayerManager::~PlayerManager() {
-	glDeleteBuffers(1, &vertexBufferId);
+/*	glDeleteBuffers(1, &vertexBufferId);
 
 	glUseProgram(0);
 	glDisableVertexAttribArray(0);
@@ -21,9 +21,22 @@ PlayerManager::~PlayerManager() {
 	glDetachShader(shaderProgram, fragmentShader);
 	glDeleteProgram(shaderProgram);
 	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	glDeleteShader(fragmentShader); */
 }
 
+
+Player* PlayerManager::getPlayer(uint __number)	{
+	assert(__number > 0);
+	uint i = 0;
+	for (; i < vec->size(); i++) {
+		if (i == __number - 1)
+			return &((*vec)[i]);
+	}
+
+	return nullptr;
+}
+
+/*
 GLchar* PlayerManager::loadShader(
 	const std::string& __file_name, 
 	uint& __size) {
@@ -183,14 +196,4 @@ void PlayerManager::drawAll() {
 			4);
 	}
 }
-
-Player* PlayerManager::getPlayer(uint __number)	{
-	assert(__number > 0);
-	uint i = 0;
-	for (; i < vec->size(); i++) {
-		if (i == __number - 1)
-			return &((*vec)[i]);
-	}
-
-	return nullptr;
-}
+*/

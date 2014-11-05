@@ -1,5 +1,6 @@
 #include "Header.h"
 #include "PlayerManager.h"
+#include "Game.h"
 
 float width = 800;
 float hight = 600;
@@ -31,9 +32,11 @@ int main(int __arg0, char** __arg1) {
 	v.push_back(p);
 	v.push_back(p2);
 	PlayerManager pm(&v);
-	pm.genVertexBuffer();
-	pm.LoadAndcompileShaders();
-	pm.setLayout();
+
+	Game game(&pm, nullptr);
+	game.genVertexBuffer();
+	game.LoadAndcompileShaders();
+	game.setLayout();
 
 	sf::Clock clock;
 	while (window.isOpen()) {
@@ -80,9 +83,9 @@ int main(int __arg0, char** __arg1) {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//renderowanie pierwszego gracza
-		pm.draw(1);
+		game.draw(1);
 		//renderowanie drugiego gracza
-		pm.draw(2);
+		game.draw(2);
 		//zamiana buforow -> pokazanie obrazu w okienku
 		window.display();
 		

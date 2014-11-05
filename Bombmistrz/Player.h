@@ -1,32 +1,11 @@
 #pragma once
 #include "Header.h"
+#include "Square.h"
 
-struct Vertex2f {
-	float x, y;
-};
-
-struct Vertex3f {
-	float x, y, z;
-};
-
-struct Vertex4f {
-	float x, y, z, t;
-};
-
-class Player {
+class Player: public Square {
 public:
-
-	//tymczasowe kordynaty jako kwadrat
-	Vertex2f xy1;
-	Vertex2f xy3;
-	Vertex3f color;
-
-	Vertex2f xy2;
-	Vertex2f xy4;
-	float side;
-
 	Vertex2f translate;
-	float speed = 1;
+	float speed = 0.5;
 	/*
 	* arg1 = wierzcholek p1
 	* arg2 = wierzcholek p3
@@ -35,9 +14,6 @@ public:
 	*/
 	Player(Vertex2f, Vertex2f, Vertex3f);
 	~Player();
-
-	std::vector<float> giveFloatVec();
-
 
 	inline void setSpeed(float __s) {
 		speed = __s;

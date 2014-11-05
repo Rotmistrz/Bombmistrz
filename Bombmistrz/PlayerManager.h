@@ -1,10 +1,10 @@
 #pragma once
 #include "Header.h"
-
+#include "Player.h"
 
 
 class PlayerManager {
-	GLuint vertexBufferId;
+	/*GLuint vertexBufferId;
 	GLuint vertexShader;
 	GLuint fragmentShader;
 	GLuint shaderProgram;
@@ -16,26 +16,42 @@ class PlayerManager {
 	GLuint posAttrib;
 	GLuint colAttrib;
 
-	GLuint _uniform_vec2;
+	GLuint _uniform_vec2;*/
 	std::vector<Player>* vec;
 	std::vector<float> corVec;
 public:
 	PlayerManager(std::vector<Player>*);
 	~PlayerManager();
 
-	GLchar* loadShader(
-		const std::string&, 
-		uint&);
-	void genVertexBuffer();
-	void setLayout();
-	void LoadAndcompileShaders();
-	inline GLuint getVertexBufferId() {
-		return vertexBufferId;
-	}
+//	GLchar* loadShader(
+//		const std::string&, 
+//		uint&);
+//	void genVertexBuffer();
+//	void setLayout();
+//	void LoadAndcompileShaders();
+//	inline GLuint getVertexBufferId() {
+//		return vertexBufferId;
+//	}
 	
-	void draw(uint);
-	void drawAll();
+//	void draw(uint);
+//	void drawAll();
 
 	Player* getPlayer(uint);
+
+	inline GLuint getSize() {
+		return corVec.size();
+	}
+
+	inline GLuint GetSizeInBytes() {
+		return corVec.size() * sizeof(float);
+	}
+
+	inline float* getFirstTabElement() {
+		return &corVec[0];
+	}
+
+	inline float* getLastTabElement() {
+		return &corVec[corVec.size() - 1];
+	}
 };
 
