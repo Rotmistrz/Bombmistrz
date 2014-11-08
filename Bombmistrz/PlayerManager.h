@@ -38,8 +38,12 @@ public:
 
 	Player* getPlayer(uint);
 
-	inline GLuint getSize() {
+	inline GLuint getCorSize() {
 		return corVec.size();
+	}
+
+	inline GLuint getSize() {
+		return vec->size();
 	}
 
 	inline GLuint GetSizeInBytes() {

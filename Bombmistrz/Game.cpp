@@ -37,17 +37,35 @@ void Game::genVertexBuffer() {
 	//wielkosc
 	//wskaznik na 1 element
 	//statyczne rysowanie
+	uint _full_size = 0;
+	if (playerManager && map)
+		_full_size = playerManager->GetSizeInBytes() + map->GetSizeInBytes();
+	else
+	if (map != nullptr)
+		_full_size = map->GetSizeInBytes();
+	else
+		_full_size = playerManager->GetSizeInBytes();
+
 	glBufferData(
 		GL_ARRAY_BUFFER,
-		playerManager->GetSizeInBytes(),
+		_full_size,
 		nullptr,
 		GL_STATIC_DRAW);
 
-	glBufferSubData(
-		GL_ARRAY_BUFFER,
-		0,
-		playerManager->GetSizeInBytes(),
-		playerManager->getFirstTabElement());
+	if (playerManager != nullptr) {
+		glBufferSubData(
+			GL_ARRAY_BUFFER,
+			0, //offset
+			playerManager->GetSizeInBytes(), //wielkosc
+			playerManager->getFirstTabElement()); //wskaznik na 1 element
+	}
+	if (map != nullptr) {
+		glBufferSubData(
+			GL_ARRAY_BUFFER,
+			playerManager->GetSizeInBytes(),
+			map->GetSizeInBytes(),
+			map->getFirstTabElement());
+	}
 }
 
 GLchar* Game::loadShader(
@@ -186,10 +204,28 @@ void Game::draw(uint __number) {
 
 void Game::drawAll() {
 	//renderuje wszystkich graczy na scenie
+	/*
 	for (uint i = 0; i < playerManager->getSize(); i++) {
 		glDrawArrays(
 			GL_POLYGON,
 			4 * i,
 			4);
+	}*/
+
+	if (playerManager != nullptr) {
+		for (uint i = 1; i <= playerManager->getSize(); i++)
+			draw(i);
+	}
+	if (map != nullptr) {
+		Vertex2f _uniform{ .0f, .0f };
+		glUniform2f(uniformPlayers, _uniform.x, _uniform.y);
+
+		uint _offset = playerManager->getSize() * 4;
+		for (uint i = 0; i < map->getSize(); i++) {
+			glDrawArrays(
+				GL_POLYGON,
+				4 * i + _offset,
+				4);
+		}
 	}
 }

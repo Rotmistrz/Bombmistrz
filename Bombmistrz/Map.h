@@ -22,8 +22,12 @@ public:
 
 //	Brick* getBrick(uint);
 
-	inline GLuint getSize() {
+	inline GLuint getCorSize() {
 		return corVec.size();
+	}
+
+	inline GLuint getSize() {
+		return vec.size();
 	}
 
 	inline GLuint GetSizeInBytes() {
