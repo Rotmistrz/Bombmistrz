@@ -2,8 +2,10 @@
 #include "PlayerManager.h"
 #include "Game.h"
 
-float width = 800;
+float width = 600;
 float hight = 600;
+
+
 
 int main(int __arg0, char** __arg1) {
 	//ustawienie kontekstu w specjalnej strukturze
@@ -16,7 +18,7 @@ int main(int __arg0, char** __arg1) {
 		sf::VideoMode(sf::VideoMode(static_cast<uint>(width), static_cast<uint>(hight), 32)),
 		"OpenGL",
 		sf::Style::Titlebar | sf::Style::Close, settings);
-
+	
 	glewExperimental = GL_TRUE;
 	glewInit();
 
@@ -37,14 +39,22 @@ int main(int __arg0, char** __arg1) {
 	Brick b(v1, v2, v333);
 	Brick b2(v11, v22, v333);
 	std::vector<Brick> vb;
-	vb.push_back(b);
-	vb.push_back(b2);
-	Map map(vb);
+	auto vec = Map::loadMapFromFile("mapa.txt");
+
+	if (vec == nullptr) {
+		MessageBox(0, "Nie mozna wczytac mapy!!!!", 0, 0);
+	}
+
+//	vb.push_back(b);
+//	vb.push_back(b2);
+	Map map(width, hight, *vec);
 
 	Game game(&pm, &map);
 	game.genVertexBuffer();
 	game.LoadAndcompileShaders();
 	game.setLayout();
+
+	
 
 	sf::Clock clock;
 	while (window.isOpen()) {
@@ -102,4 +112,3 @@ int main(int __arg0, char** __arg1) {
 	
 	return 0;
 }
-

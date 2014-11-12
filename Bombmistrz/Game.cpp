@@ -45,20 +45,22 @@ void Game::genVertexBuffer() {
 		_full_size = map->GetSizeInBytes();
 	else
 		_full_size = playerManager->GetSizeInBytes();
-
+	//tworzenie bufora typu GL_ARRAY_BUFFER, o pojemnosci graczy + mapy
 	glBufferData(
 		GL_ARRAY_BUFFER,
 		_full_size,
 		nullptr,
 		GL_STATIC_DRAW);
-
+	
+	// przekazywanie wspolrzednych graczy + kolorow do bufora.
 	if (playerManager != nullptr) {
 		glBufferSubData(
 			GL_ARRAY_BUFFER,
 			0, //offset
-			playerManager->GetSizeInBytes(), //wielkosc
+			playerManager->GetSizeInBytes(), //wielkosc w bajtach
 			playerManager->getFirstTabElement()); //wskaznik na 1 element
 	}
+	//to samo tylko z mapa
 	if (map != nullptr) {
 		glBufferSubData(
 			GL_ARRAY_BUFFER,
@@ -190,8 +192,10 @@ void Game::draw(uint __number) {
 	//numer gracza musi byc wiekszy niz 0 !
 	assert(__number > 0);
 	Vertex2f _uniform;
-
+	//pobieranie uniformu od gracza
 	_uniform = playerManager->getPlayer(__number)->translate;
+	//przekazywanie uniformu do vertex shadera - juz po aktualizacji
+	//uniform - wektor przesuniecia gracza
 	glUniform2f(uniformPlayers, _uniform.x, _uniform.y);
 	_uniform.x = .0f;
 	_uniform.y = .0f;
@@ -211,11 +215,6 @@ void Game::drawAll() {
 			4 * i,
 			4);
 	}*/
-
-	if (playerManager != nullptr) {
-		for (uint i = 1; i <= playerManager->getSize(); i++)
-			draw(i);
-	}
 	if (map != nullptr) {
 		Vertex2f _uniform{ .0f, .0f };
 		glUniform2f(uniformPlayers, _uniform.x, _uniform.y);
@@ -227,5 +226,9 @@ void Game::drawAll() {
 				4 * i + _offset,
 				4);
 		}
+	}
+	if (playerManager != nullptr) {
+		for (uint i = 1; i <= playerManager->getSize(); i++)
+			draw(i);
 	}
 }

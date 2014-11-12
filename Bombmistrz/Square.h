@@ -14,6 +14,7 @@ protected:
 	float side; //bok kwadratu
 public:
 	Square(Vertex2f, Vertex2f, Vertex3f);
+	Square(float, float, float, float);
 	~Square();
 
 	std::vector<float> giveFloatVec();
