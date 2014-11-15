@@ -1,5 +1,14 @@
 #include "Map.h"
 
+void Map::setCorVec() {
+	for (auto itr = vec.begin(); itr != vec.end(); ++itr) {
+		std::vector<float> _tmp = itr->giveFloatVec();
+		for (auto itr2 = _tmp.begin(); itr2 != _tmp.end(); ++itr2) {
+			corVec.push_back(*itr2);
+		}
+	}
+}
+
 Map::Map(const std::vector<Brick>& __vec)
 : vec(__vec) {
 	/*
@@ -7,12 +16,7 @@ Map::Map(const std::vector<Brick>& __vec)
 		Nastepnie konwertuje wszystkie koordynaty i kolory(czyli pola kazdego obiektu)
 		do wektora, ktory miesci w sobie ciag wszystkich tych danych.
 	*/
-	for (auto itr = vec.begin(); itr != vec.end(); ++itr) {
-		std::vector<float> _tmp = itr->giveFloatVec();
-		for (auto itr2 = _tmp.begin(); itr2 != _tmp.end(); ++itr2) {
-			corVec.push_back(*itr2);
-		}
-	}
+	setCorVec();
 }
 
 Map::Map(uint __w, uint __h, const std::vector<std::vector<char>>& __vec)
@@ -41,15 +45,7 @@ Map::Map(uint __w, uint __h, const std::vector<std::vector<char>>& __vec)
 		_y3 -= _a;
 	}
 
-	for (auto itr = vec.begin(); itr != vec.end(); ++itr) {
-		std::vector<float> _tmp = itr->giveFloatVec();
-		for (auto itr2 = _tmp.begin(); itr2 != _tmp.end(); ++itr2) {
-			corVec.push_back(*itr2);
-		}
-	}
-
-	float d = 4;
-	d = 3;
+	setCorVec();
 }
 
 Map::Map() {
@@ -90,7 +86,7 @@ std::vector<std::vector<char>>* Map::loadMapFromFile(const std::string& __str) {
 
 	return _resultVec;
 }
-
+/*
 bool Map::loadImageFromFile(const std::string& __file_name) {
 	bool _result = imgData.loadFromFile(__file_name);
 
@@ -114,4 +110,10 @@ void Map::bindAndUpload() {
 		GL_RGBA, 
 		GL_UNSIGNED_BYTE, 
 		imgData.getPixelsPtr());
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
+*/

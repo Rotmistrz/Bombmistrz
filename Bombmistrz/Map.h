@@ -15,8 +15,9 @@ class Map {
 	std::vector<float> corVec;
 
 	uint width, height;
+
+	void setCorVec();
 public:
-	 bool loadImageFromFile(const std::string&);
 	static std::vector<std::vector<char>>* loadMapFromFile(const std::string&);
 	
 	Map(const std::vector<Brick>&);
@@ -24,7 +25,8 @@ public:
 	Map();
 	~Map();
 	
-	void bindAndUpload();
+//	bool loadImageFromFile(const std::string&);
+//	void bindAndUpload();
 //	Brick* getBrick(uint);
 
 	inline GLuint getCorSize() {

@@ -13,7 +13,7 @@ Game::Game() {
 
 Game::~Game() {
 	glDeleteBuffers(1, &vertexBufferId);
-
+	glDeleteTextures(2, texturesId);
 	glUseProgram(0);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
@@ -179,13 +179,70 @@ void Game::setLayout() {
 	posAttrib = glGetAttribLocation(shaderProgram, "position");
 	glEnableVertexAttribArray(posAttrib);
 	//2 wartosci to pozycja + skok co 5
-	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
+	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), 0);
 	//3 wartosci to kolor + skok co 5, przesuniecie 2 w stosunku do pierwszego elementu
 	colAttrib = glGetAttribLocation(shaderProgram, "color");
 	glEnableVertexAttribArray(colAttrib);
-	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
+	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
+
+	texAttrib = glGetAttribLocation(shaderProgram, "texture");
+	glEnableVertexAttribArray(texAttrib);
+	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (void*)(5 * sizeof(GLfloat)));
 
 	uniformPlayers = glGetUniformLocation(shaderProgram, "translation");
+}
+
+void Game::bindAndUploadTex() {
+	glGenTextures(2, texturesId);
+
+//	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texturesId[0]);
+	bool _result = imgData.loadFromFile("images/Kafelki/Kafelek 2.jpg");
+	
+	if (!_result)
+		MessageBox(0, "Nie mozna wczytac tekstury mapy!", 0, 0);
+	
+	glTexImage2D(
+		GL_TEXTURE_2D,
+		0,
+		GL_RGBA,
+		imgData.getSize().y,
+		imgData.getSize().x,
+		0,
+		GL_RGBA,
+		GL_UNSIGNED_BYTE,
+		imgData.getPixelsPtr());
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glDisable(GL_TEXTURE_2D);
+
+
+//	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texturesId[1]);
+	bool _result_2 = imgData.loadFromFile("images/Ludzik/Bombmistrz - projekt ludzika.jpg");
+
+	if (!_result_2)
+		MessageBox(0, "Nie mozna wczytac tektrusty gracza!", 0, 0);
+	//wczytanie jpg do bufora
+	glTexImage2D(
+		GL_TEXTURE_2D,
+		0,
+		GL_RGBA,
+		imgData.getSize().y,
+		imgData.getSize().x,
+		0,
+		GL_RGBA,
+		GL_UNSIGNED_BYTE,
+		imgData.getPixelsPtr());
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glDisable(GL_TEXTURE_2D);
 }
 
 void Game::draw(uint __number) {
@@ -215,6 +272,8 @@ void Game::drawAll() {
 			4 * i,
 			4);
 	}*/
+//	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texturesId[0]);
 	if (map != nullptr) {
 		Vertex2f _uniform{ .0f, .0f };
 		glUniform2f(uniformPlayers, _uniform.x, _uniform.y);
@@ -227,8 +286,13 @@ void Game::drawAll() {
 				4);
 		}
 	}
+	glDisable(GL_TEXTURE_2D);
+
+//	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texturesId[1]);
 	if (playerManager != nullptr) {
 		for (uint i = 1; i <= playerManager->getSize(); i++)
 			draw(i);
 	}
+	glDisable(GL_TEXTURE_2D);
 }

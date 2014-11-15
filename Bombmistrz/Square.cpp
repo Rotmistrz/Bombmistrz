@@ -1,5 +1,17 @@
 #include "Square.h"
 
+//funkcja ustawiajaca koordynaty obrazka wewnatrz kwadratu
+void Square::setTexture() {
+	texX.x = .0f;
+	texX.y = .0f;
+	texY.x = 1.0f;
+	texY.y = .0f;
+	texZ.x = 1.0f;
+	texZ.y = 1.0f;
+	texT.x = .0f;
+	texT.y = 1.0f;
+}
+
 Square::Square(
 	Vertex2f __xy1,
 	Vertex2f __xy3,
@@ -15,6 +27,8 @@ Square::Square(
 	xy2.y = xy1.y;
 	xy4.x = xy1.x;
 	xy4.y = xy3.y;
+
+	setTexture();
 }
 
 Square::Square(float __x1, float __y1, float __x3, float __y3) {
@@ -34,18 +48,21 @@ Square::Square(float __x1, float __y1, float __x3, float __y3) {
 	xy2.y = xy1.y;
 	xy4.x = xy1.x;
 	xy4.y = xy3.y;
+
+	setTexture();
 }
 
 Square::~Square() {
 }
 
+//funkcja zwracajaca vektor z wszystkimi parametrami polozenia, koloru, tekstury
 std::vector<float> Square::giveFloatVec() {
 	return
 		std::vector<float> {
 
-		xy1.x, xy1.y, color.x, color.y, color.z,
-		xy2.x, xy2.y, color.x, color.y, color.z,
-		xy3.x, xy3.y, color.x, color.y, color.z,
-		xy4.x, xy4.y, color.x, color.y, color.z,
+		xy1.x, xy1.y, color.x, color.y, color.z, texX.x, texX.y,
+		xy2.x, xy2.y, color.x, color.y, color.z, texY.x, texY.y,
+		xy3.x, xy3.y, color.x, color.y, color.z, texZ.x, texZ.y,
+		xy4.x, xy4.y, color.x, color.y, color.z, texT.x, texT.y
 	};
 }

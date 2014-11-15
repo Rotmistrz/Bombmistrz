@@ -21,6 +21,7 @@ class PlayerManager {
 	std::vector<float> corVec;
 public:
 	PlayerManager(std::vector<Player>*);
+	PlayerManager(std::vector<Player>&&);
 	~PlayerManager();
 
 //	GLchar* loadShader(

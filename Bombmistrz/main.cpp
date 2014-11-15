@@ -2,8 +2,8 @@
 #include "PlayerManager.h"
 #include "Game.h"
 
-float width = 600;
-float hight = 600;
+const float width = 600;
+const float hight = 600;
 
 
 
@@ -26,15 +26,15 @@ int main(int __arg0, char** __arg1) {
 	Vertex2f v2 { -0.9, 0.9 };
 	Vertex3f v3{ 1.0f, 0.0f, 0.0 };
 	Player p(v1, v2, v3);
-	Vertex2f v11{ 0.9, -0.9 };
-	Vertex2f v22{ 1.0, -1.0 };
+	Vertex2f v11{ -0.9, -0.9 };
+	Vertex2f v22{ -1.0, -1.0 };
 	Vertex3f v33{ 1.0f, 1.0f, 0.0 };
 	//Vertex3f v333{ .0f, .0f, .0f };
-	Player p2(v11, v22, v33);
+	Player p2(v22, v11, v33);
 	std::vector<Player> v;
 	v.push_back(p);
 	v.push_back(p2);
-	PlayerManager pm(&v);
+	PlayerManager pm(std::move(v));
 	Vertex3f v333{ 1.0f, 1.0f, 1.0f };
 	Brick b(v1, v2, v333);
 	Brick b2(v11, v22, v333);
@@ -53,7 +53,7 @@ int main(int __arg0, char** __arg1) {
 	game.genVertexBuffer();
 	game.LoadAndcompileShaders();
 	game.setLayout();
-
+	game.bindAndUploadTex();
 	
 
 	sf::Clock clock;

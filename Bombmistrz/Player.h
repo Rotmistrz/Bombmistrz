@@ -3,6 +3,8 @@
 #include "Square.h"
 
 class Player: public Square {
+	GLuint playerTexId;
+	sf::Image imgData;
 public:
 	Vertex2f translate;
 	float speed = 0.5;

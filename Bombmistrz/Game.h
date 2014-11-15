@@ -19,6 +19,9 @@ public:
 
 	GLuint posAttrib;
 	GLuint colAttrib;
+	GLuint texAttrib;
+	sf::Image imgData;
+	GLuint texturesId[2];
 
 	GLuint uniformPlayers;
 public:
@@ -33,5 +36,7 @@ public:
 	void draw(uint);
 	void drawAll();
 	Player* getPlayer(uint);
+
+	void bindAndUploadTex();
 };
 

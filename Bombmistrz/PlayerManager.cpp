@@ -1,7 +1,22 @@
 #include "PlayerManager.h"
 
+//konstruktor przypisujacy vektor graczy do vektora graczy wewnatrz klasy
+//nastepnie konstruktor tworzy vektor gotowy do umieszczenia w buforze.
+//tzn wszystkie parametry kazdego gracza: polozenie, kolor, polozenie tekstury
 PlayerManager::PlayerManager(std::vector<Player>* __vec) {
 	vec = new std::vector<Player>(*__vec);
+
+	for (auto itr = vec->begin(); itr != vec->end(); ++itr) {
+		std::vector<float> _tmp = itr->giveFloatVec();
+		for (auto itr2 = _tmp.begin(); itr2 != _tmp.end(); ++itr2) {
+			corVec.push_back(*itr2);
+		}
+	}
+}
+
+//konstruktor przenoszacy
+PlayerManager::PlayerManager(std::vector<Player>&& __vec) {
+	vec = new std::vector<Player>(__vec);
 
 	for (auto itr = vec->begin(); itr != vec->end(); ++itr) {
 		std::vector<float> _tmp = itr->giveFloatVec();
@@ -22,6 +37,7 @@ PlayerManager::~PlayerManager() {
 	glDeleteProgram(shaderProgram);
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader); */
+	delete vec;
 }
 
 
