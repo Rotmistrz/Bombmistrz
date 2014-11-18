@@ -2,14 +2,18 @@
 
 void Map::setCorVec() {
 	for (auto itr = vec.begin(); itr != vec.end(); ++itr) {
-		std::vector<float> _tmp = itr->giveFloatVec();
-		for (auto itr2 = _tmp.begin(); itr2 != _tmp.end(); ++itr2) {
-			corVec.push_back(*itr2);
+		auto wsk = *itr; //iterator to wskaznik na wskaznik na jedna cegielke, wiec dla ulatwienia
+		//tworzes zwykly wskaznik juz na sama cegielke.
+		if (wsk != nullptr) {
+			std::vector<float> _tmp = wsk->giveFloatVec();
+			for (auto itr2 = _tmp.begin(); itr2 != _tmp.end(); ++itr2) {
+				corVec.push_back(*itr2);
+			}
 		}
 	}
 }
 
-Map::Map(const std::vector<Brick>& __vec)
+Map::Map(const std::vector<Brick*>& __vec)
 : vec(__vec) {
 	/*
 		konstruktor pobiera wektor obiektow typu Brick.
@@ -21,28 +25,48 @@ Map::Map(const std::vector<Brick>& __vec)
 
 Map::Map(uint __w, uint __h, const std::vector<std::vector<char>>& __vec)
 : width(__w), height(__h) {
-	float _a = 2.0f / static_cast<float>(__vec.size()); //szerokosc danego kwadratu
+	float _a_cols = .0f;
+	float _a_rows = .0f;
+	if (width < height) {
+		_a_cols = static_cast<float>(width) / __vec.size();
+		_a_rows = _a_cols;
+		_a_rows /= static_cast<float>(height);
+		_a_cols /= static_cast<float>(width);
+		_a_cols *= 2.0f;
+		_a_rows *= 2.0f;
+	}
+	else {
+		_a_rows = static_cast<float>(height) / __vec.size();
+		_a_cols = _a_rows;
+		_a_cols /= static_cast<float>(width);
+		_a_rows /= static_cast<float>(height);
+		_a_rows *= 2.0f;
+		_a_cols *= 2.0f;
+	}
+	
 	float _x1 = -1.0f; // poczatkowy punkt x1
 	float _y1 = 1.0f; //y1
-	float _x3 = -1.0f + _a; //_x3 jest przesuniety o dlugosc boku kwadratu
-	float _y3 = 1.0f - _a; // tak samo z _y3
+	float _x3 = -1.0f + _a_cols; //_x3 jest przesuniety o dlugosc boku kwadratu
+	float _y3 = 1.0f - _a_rows; // tak samo z _y3
 	for (auto it1 : __vec) {
 		for (auto c : it1) { //char
 			if (c == '*') { //dla bloczkow zniszczalnych
-				vec.push_back(Brick(_x1, _y1, _x3, _y3));
+				vec.push_back(new Brick(_x1, _y1, _x3, _y3));
 			}
 			else
 			if (c == '@') { //dla bloszkow niezniszczalnych
-				vec.push_back(Brick(_x1, _y1, _x3, _y3));
+				vec.push_back(new Brick(_x1, _y1, _x3, _y3));
 			}
-			// else c == ' ';
-			_x1 += _a; 
-			_x3 += _a;
+			else //jezeli jest wolne miejsce to wloz nullptr
+				vec.push_back(nullptr);
+
+			_x1 += _a_cols; 
+			_x3 += _a_cols;
 		}
 		_x1 = -1.0f;
-		_x3 = -1.0f + _a;
-		_y1 -= _a;
-		_y3 -= _a;
+		_x3 = -1.0f + _a_cols;
+		_y1 -= _a_rows;
+		_y3 -= _a_rows;
 	}
 
 	setCorVec();

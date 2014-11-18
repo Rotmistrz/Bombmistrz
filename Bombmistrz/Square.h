@@ -2,6 +2,7 @@
 #include "Vertex.h"
 #include <vector>
 
+typedef unsigned int uint;
 class Square {
 
 protected:
@@ -18,6 +19,7 @@ protected:
 public:
 	Square(Vertex2f, Vertex2f, Vertex3f);
 	Square(float, float, float, float);
+	Square(Vertex2f, float, Vertex3f, uint, uint);
 	~Square();
 
 	std::vector<float> giveFloatVec();

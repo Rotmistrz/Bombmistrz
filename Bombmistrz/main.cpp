@@ -1,36 +1,57 @@
 #include "Header.h"
 #include "PlayerManager.h"
 #include "Game.h"
+#include <string>
+#include <sstream>
 
 const float width = 600;
 const float hight = 600;
 
+struct Resolution {
+	uint w, h;
+};
 
+Resolution loadResFromFile(const std::string&);
 
-int main(int __arg0, char** __arg1) {
+int main(int __arg0, char* __arg1[]) {
 	//ustawienie kontekstu w specjalnej strukturze
 	sf::ContextSettings settings;
 	settings.depthBits = 24;
 	settings.stencilBits = 8;
 	settings.antialiasingLevel = 4;
 	//tworzenie okienka
+	Resolution r;
+	try {
+		 r = loadResFromFile("rozdzielczosc.txt");
+	}
+	catch (std::string) {
+		MessageBox(0, "chuja nawet nie umiesz podac w pliku txt dwoch intow debilu!", 0, 0);
+		return -1;
+	}
+
 	sf::Window window(
-		sf::VideoMode(sf::VideoMode(static_cast<uint>(width), static_cast<uint>(hight), 32)),
-		"OpenGL",
-		sf::Style::Titlebar | sf::Style::Close, settings);
+	sf::VideoMode(sf::VideoMode(static_cast<uint>(r.w), static_cast<uint>(r.h), 32)),
+	"OpenGL",
+	sf::Style::Titlebar | sf::Style::Close, settings);
 	
 	glewExperimental = GL_TRUE;
 	glewInit();
-
-	Vertex2f v1  { -1.0, 1.0 };
-	Vertex2f v2 { -0.9, 0.9 };
+	
+	
+	auto vec = Map::loadMapFromFile("mapa.txt");
+	float offset = float(std::min(r.w, r.h) / vec->size());
+	Vertex2f v1{ 0, 0 };
+	Vertex2f v2{ -0.9, 0.9 };
 	Vertex3f v3{ 1.0f, 0.0f, 0.0 };
-	Player p(v1, v2, v3);
-	Vertex2f v11{ -0.9, -0.9 };
-	Vertex2f v22{ -1.0, -1.0 };
+	Player p(v1, float(std::min(r.w, r.h) / vec->size()), v3, r.w, r.h);
+	if (vec == nullptr) {
+		MessageBox(0, "Nie mozna wczytac mapy!!!!", 0, 0);
+	}
+	Vertex2f v11{ 0, r.w };
+	Vertex2f v22{ 0, r.h - float(std::min(r.w, r.h) / vec->size()) };
 	Vertex3f v33{ 1.0f, 1.0f, 0.0 };
 	//Vertex3f v333{ .0f, .0f, .0f };
-	Player p2(v22, v11, v33);
+	Player p2(v22, float(std::min(r.w, r.h) / vec->size()), v33, r.w, r.h);
 	std::vector<Player> v;
 	v.push_back(p);
 	v.push_back(p2);
@@ -39,15 +60,11 @@ int main(int __arg0, char** __arg1) {
 	Brick b(v1, v2, v333);
 	Brick b2(v11, v22, v333);
 	std::vector<Brick> vb;
-	auto vec = Map::loadMapFromFile("mapa.txt");
 
-	if (vec == nullptr) {
-		MessageBox(0, "Nie mozna wczytac mapy!!!!", 0, 0);
-	}
 
 //	vb.push_back(b);
 //	vb.push_back(b2);
-	Map map(width, hight, *vec);
+	Map map(r.w, r.h, *vec);
 
 	Game game(&pm, &map);
 	game.genVertexBuffer();
@@ -111,4 +128,41 @@ int main(int __arg0, char** __arg1) {
 	}
 	
 	return 0;
+}
+
+Resolution loadResFromFile(const std::string& __str) {
+	std::ifstream _file;
+	_file.open(__str);
+
+	if (!_file.is_open())
+		throw std::string("blad!");
+
+	std::string _temp("");
+	std::getline(_file, _temp);
+
+	std::string _n1;
+	std::string _n2;
+
+	bool first = true;
+	for (char c : _temp) {
+		if (c == ' ') {
+			first = false;
+			continue;
+		}
+		if (first)
+			_n1 += c;
+		else
+			_n2 += c;
+	}
+
+	uint _n1_i, _n2_i;
+	std::istringstream iss(_n1);
+	iss >> _n1_i;
+	std::istringstream iss_2(_n2);
+	iss_2 >> _n2_i;
+
+	Resolution r;
+	r.w = _n1_i;
+	r.h = _n2_i;
+	return r;
 }

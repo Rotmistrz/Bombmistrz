@@ -119,13 +119,15 @@ void Game::LoadAndcompileShaders() {
 		std::cerr << "Nie mozna wczytac fragment shadera!\n";
 
 	//tworze vertex shader i kompiluje
+	const GLint _size_vs = sizeVS;
+	const GLint _size_fs = sizeFS;
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertSource, NULL);	
+	glShaderSource(vertexShader, 1, &vertSource, &_size_vs);	
 	glCompileShader(vertexShader);
 
 	//frag + kompilacja
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragSource, NULL);
+	glShaderSource(fragmentShader, 1, &fragSource, &_size_fs);
 	glCompileShader(fragmentShader);
 
 
@@ -197,7 +199,7 @@ void Game::bindAndUploadTex() {
 
 //	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturesId[0]);
-	bool _result = imgData.loadFromFile("images/Kafelki/Kafelek 2.jpg");
+	bool _result = imgData.loadFromFile("images/Kafelki/SoftBlock.jpg");
 	
 	if (!_result)
 		MessageBox(0, "Nie mozna wczytac tekstury mapy!", 0, 0);

@@ -6,7 +6,6 @@
 #include <string>
 #include <fstream>
 #include <Windows.h>
+#include <memory>
 
 typedef unsigned int uint;
-
-
