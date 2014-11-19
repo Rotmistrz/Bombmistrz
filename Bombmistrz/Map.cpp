@@ -43,7 +43,12 @@ Map::Map(uint __w, uint __h, const std::vector<std::vector<char>>& __vec)
 		_a_rows *= 2.0f;
 		_a_cols *= 2.0f;
 	}
-	
+	//liczba kolumn i wierszy + dlugosc boku cegielek
+	numberOfCols = __vec.size();
+	numberOfRows = __vec.size();
+	aX = _a_cols;
+	aY = _a_rows;
+
 	float _x1 = -1.0f; // poczatkowy punkt x1
 	float _y1 = 1.0f; //y1
 	float _x3 = -1.0f + _a_cols; //_x3 jest przesuniety o dlugosc boku kwadratu

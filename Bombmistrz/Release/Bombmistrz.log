@@ -1,15 +1,12 @@
-﻿Build started 2014-11-18 20:10:53.
+﻿Build started 2014-11-19 20:54:08.
      1>Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\Bombmistrz.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D SFML_STATIC /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Brick.cpp Game.cpp Map.cpp Player.cpp PlayerManager.cpp Square.cpp main.cpp
-         Brick.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D SFML_STATIC /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp Map.cpp Player.cpp PlayerManager.cpp main.cpp
          Game.cpp
          Map.cpp
          Player.cpp
          PlayerManager.cpp
-         Square.cpp
          main.cpp
-     1>main.cpp(44): warning C4305: 'initializing' : truncation from 'double' to 'float'
      1>main.cpp(50): warning C4244: 'initializing' : conversion from 'uint' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Release\Bombmistrz.exe" /NOLOGO /LIBPATH:C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\lib "sfml-graphics.lib" "sfml-window.lib" "sfml-system.lib" opengl32.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Release\Bombmistrz.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Release\Bombmistrz.lib" /MACHINE:X86 /SAFESEH Release\Brick.obj
@@ -20,10 +17,12 @@
          Release\PlayerManager.obj
          Release\Square.obj
          Generating code
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\map.h(81): warning C4715: 'Map::getPosInCols' : not all control paths return a value
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\map.h(92): warning C4715: 'Map::getPosInRows' : not all control paths return a value
          Finished generating code
          Bombmistrz.vcxproj -> C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Release\Bombmistrz.exe
      1>Done Building Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\Bombmistrz.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:08.43
+Time Elapsed 00:00:08.13

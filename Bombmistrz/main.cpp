@@ -30,7 +30,7 @@ int main(int __arg0, char* __arg1[]) {
 	}
 
 	sf::Window window(
-	sf::VideoMode(sf::VideoMode(static_cast<uint>(r.w), static_cast<uint>(r.h), 32)),
+	sf::VideoMode( sf::VideoMode(static_cast<uint>(r.w), static_cast<uint>(r.h), 32)),
 	"OpenGL",
 	sf::Style::Titlebar | sf::Style::Close, settings);
 	
@@ -39,11 +39,11 @@ int main(int __arg0, char* __arg1[]) {
 	
 	
 	auto vec = Map::loadMapFromFile("mapa.txt");
+	Map map(r.w, r.h, *vec);
 	float offset = float(std::min(r.w, r.h) / vec->size());
-	Vertex2f v1{ 0, 0 };
-	Vertex2f v2{ -0.9, 0.9 };
+	Vertex2f v1{ 50, 0 };
 	Vertex3f v3{ 1.0f, 0.0f, 0.0 };
-	Player p(v1, float(std::min(r.w, r.h) / vec->size()), v3, r.w, r.h);
+	Player p(v1, float(std::min(r.w, r.h) / vec->size()) * 0.8f , v3, r.w, r.h, &map);
 	if (vec == nullptr) {
 		MessageBox(0, "Nie mozna wczytac mapy!!!!", 0, 0);
 	}
@@ -51,20 +51,14 @@ int main(int __arg0, char* __arg1[]) {
 	Vertex2f v22{ 0, r.h - float(std::min(r.w, r.h) / vec->size()) };
 	Vertex3f v33{ 1.0f, 1.0f, 0.0 };
 	//Vertex3f v333{ .0f, .0f, .0f };
-	Player p2(v22, float(std::min(r.w, r.h) / vec->size()), v33, r.w, r.h);
+	Player p2(v22, float(std::min(r.w, r.h) / vec->size()) * 0.8f, v33, r.w, r.h, &map);
 	std::vector<Player> v;
 	v.push_back(p);
 	v.push_back(p2);
 	PlayerManager pm(std::move(v));
 	Vertex3f v333{ 1.0f, 1.0f, 1.0f };
-	Brick b(v1, v2, v333);
-	Brick b2(v11, v22, v333);
-	std::vector<Brick> vb;
 
-
-//	vb.push_back(b);
-//	vb.push_back(b2);
-	Map map(r.w, r.h, *vec);
+	
 
 	Game game(&pm, &map);
 	game.genVertexBuffer();
