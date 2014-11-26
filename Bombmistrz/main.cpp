@@ -12,6 +12,7 @@ struct Resolution {
 };
 
 Resolution loadResFromFile(const std::string&);
+void endFunction();
 
 int main(int __arg0, char* __arg1[]) {
 	//ustawienie kontekstu w specjalnej strukturze
@@ -36,14 +37,14 @@ int main(int __arg0, char* __arg1[]) {
 	
 	glewExperimental = GL_TRUE;
 	glewInit();
-	
-	
+	atexit(endFunction);
+		
 	auto vec = Map::loadMapFromFile("mapa.txt");
-	Map map(r.w, r.h, *vec);
+	auto map = std::make_shared<Map>(r.w, r.h, *vec);
 	float offset = float(std::min(r.w, r.h) / vec->size());
 	Vertex2f v1{ 50, 0 };
 	Vertex3f v3{ 1.0f, 0.0f, 0.0 };
-	Player p(v1, float(std::min(r.w, r.h) / vec->size()) * 0.8f , v3, r.w, r.h, &map);
+	Player p(v1, float(std::min(r.w, r.h) / vec->size()) * 0.8f , v3, r.w, r.h, map.get());
 	if (vec == nullptr) {
 		MessageBox(0, "Nie mozna wczytac mapy!!!!", 0, 0);
 	}
@@ -51,22 +52,19 @@ int main(int __arg0, char* __arg1[]) {
 	Vertex2f v22{ 0, r.h - float(std::min(r.w, r.h) / vec->size()) };
 	Vertex3f v33{ 1.0f, 1.0f, 0.0 };
 	//Vertex3f v333{ .0f, .0f, .0f };
-	Player p2(v22, float(std::min(r.w, r.h) / vec->size()) * 0.8f, v33, r.w, r.h, &map);
+	Player p2(v22, float(std::min(r.w, r.h) / vec->size()) * 0.8f, v33, r.w, r.h, map.get());
 	std::vector<Player> v;
 	v.push_back(p);
 	v.push_back(p2);
-	PlayerManager pm(std::move(v));
-	Vertex3f v333{ 1.0f, 1.0f, 1.0f };
+	auto pm = std::make_shared<PlayerManager>(std::move(v)); //= new PlayerManager(std::move(v));
 
-	
-
-	Game game(&pm, &map);
+	Game game(pm, map);
 	game.genVertexBuffer();
 	game.LoadAndcompileShaders();
 	game.setLayout();
 	game.bindAndUploadTex();
 	
-
+	
 	sf::Clock clock;
 	while (window.isOpen()) {
 		float elapsed_time = static_cast<float>(clock.getElapsedTime().asSeconds());
@@ -81,30 +79,30 @@ int main(int __arg0, char* __arg1[]) {
 		
 		//logika klawiatura - strzalki
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			pm.getPlayer(1)->moveLeft(elapsed_time);
+			pm->getPlayer(1)->moveLeft(elapsed_time);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			pm.getPlayer(1)->moveRight(elapsed_time);
+			pm->getPlayer(1)->moveRight(elapsed_time);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-			pm.getPlayer(1)->moveUp(elapsed_time);
+			pm->getPlayer(1)->moveUp(elapsed_time);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-			pm.getPlayer(1)->moveDown(elapsed_time);
+			pm->getPlayer(1)->moveDown(elapsed_time);
 		}
 		
 		//logika klawiatura - wsad
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-			pm.getPlayer(2)->moveUp(elapsed_time);
+			pm->getPlayer(2)->moveUp(elapsed_time);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			pm.getPlayer(2)->moveDown(elapsed_time);
+			pm->getPlayer(2)->moveDown(elapsed_time);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-			pm.getPlayer(2)->moveLeft(elapsed_time);
+			pm->getPlayer(2)->moveLeft(elapsed_time);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-			pm.getPlayer(2)->moveRight(elapsed_time);
+			pm->getPlayer(2)->moveRight(elapsed_time);
 		}
 
 		//wyczysczenie bufora na kolor czarny
@@ -159,4 +157,8 @@ Resolution loadResFromFile(const std::string& __str) {
 	r.w = _n1_i;
 	r.h = _n2_i;
 	return r;
+}
+
+void endFunction() {
+	std::cerr << "Raptowne przerwanie programu!";
 }

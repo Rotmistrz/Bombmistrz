@@ -5,7 +5,7 @@ void Map::setCorVec() {
 		auto wsk = *itr; //iterator to wskaznik na wskaznik na jedna cegielke, wiec dla ulatwienia
 		//tworzes zwykly wskaznik juz na sama cegielke.
 		if (wsk != nullptr) {
-			std::vector<float> _tmp = wsk->giveFloatVec();
+			auto _tmp = wsk->giveFloatVec();
 			for (auto itr2 = _tmp.begin(); itr2 != _tmp.end(); ++itr2) {
 				corVec.push_back(*itr2);
 			}
@@ -13,8 +13,11 @@ void Map::setCorVec() {
 	}
 }
 
-Map::Map(const std::vector<Brick*>& __vec)
+// do modernizacji!!! Trzeba ustawic pola klasy w tym konstruktorze!!!
+Map::Map(const std::vector<std::shared_ptr<Brick>>& __vec)
 : vec(__vec) {
+	assert(0);
+	
 	/*
 		konstruktor pobiera wektor obiektow typu Brick.
 		Nastepnie konwertuje wszystkie koordynaty i kolory(czyli pola kazdego obiektu)
@@ -23,8 +26,9 @@ Map::Map(const std::vector<Brick*>& __vec)
 	setCorVec();
 }
 
-Map::Map(uint __w, uint __h, const std::vector<std::vector<char>>& __vec)
+Map::Map(uint __w, uint __h, const vec2dChar& __vec)
 : width(__w), height(__h) {
+
 	float _a_cols = .0f;
 	float _a_rows = .0f;
 	if (width < height) {
@@ -56,15 +60,15 @@ Map::Map(uint __w, uint __h, const std::vector<std::vector<char>>& __vec)
 	for (auto it1 : __vec) {
 		for (auto c : it1) { //char
 			if (c == '*') { //dla bloczkow zniszczalnych
-				vec.push_back(new Brick(_x1, _y1, _x3, _y3));
+				vec.push_back(std::make_shared<Brick>(Brick(_x1, _y1, _x3, _y3)));
 			}
 			else
 			if (c == '@') { //dla bloszkow niezniszczalnych
-				vec.push_back(new Brick(_x1, _y1, _x3, _y3));
+				vec.push_back(std::make_shared<Brick>(Brick(_x1, _y1, _x3, _y3)));
 			}
 			else //jezeli jest wolne miejsce to wloz nullptr
 				vec.push_back(nullptr);
-
+			
 			_x1 += _a_cols; 
 			_x3 += _a_cols;
 		}
@@ -83,7 +87,7 @@ Map::Map() {
 Map::~Map() {
 }
 
-std::vector<std::vector<char>>* Map::loadMapFromFile(const std::string& __str) {
+ptrVec2dChar Map::loadMapFromFile(const std::string& __str) {
 	std::ifstream _file;
 	_file.open(__str);
 
@@ -91,7 +95,7 @@ std::vector<std::vector<char>>* Map::loadMapFromFile(const std::string& __str) {
 		return nullptr;
 	}
 
-	std::vector<std::vector<char>>* _resultVec = new std::vector<std::vector<char>>;
+	auto _resultVec = std::shared_ptr<vec2dChar>(new vec2dChar);
 
 	while (!_file.eof()) {
 		std::string _tmp;

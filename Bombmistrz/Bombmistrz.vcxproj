@@ -72,6 +72,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="BombManager.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -81,6 +83,8 @@
     <ClCompile Include="Square.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bomb.h" />
+    <ClInclude Include="BombManager.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Header.h" />

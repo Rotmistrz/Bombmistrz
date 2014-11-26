@@ -2,12 +2,14 @@
 #include "Header.h"
 #include "PlayerManager.h"
 #include "Map.h"
+#include "BombManager.h"
 
 class Game {
 public:
 	GLuint vertexBufferId;
-	PlayerManager* playerManager;
-	Map* map;
+	std::shared_ptr<PlayerManager> playerManager;
+	std::unique_ptr<BombManager> bombManager;
+	std::shared_ptr<Map> map;
 
 	GLuint vertexShader;
 	GLuint fragmentShader;
@@ -26,7 +28,7 @@ public:
 	GLuint uniformPlayers;
 public:
 	Game();
-	Game(PlayerManager*, Map*);
+	Game(const std::shared_ptr<PlayerManager>&, const std::shared_ptr<Map>&);
 	~Game();
 
 	void genVertexBuffer();

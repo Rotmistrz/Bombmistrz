@@ -27,11 +27,18 @@ Square::Square(
 	xy2.y = xy1.y;
 	xy4.x = xy1.x;
 	xy4.y = xy3.y;
+	side = abs(xy3.x - xy1.x);
 
 	setTexture();
 }
 
 Square::Square(float __x1, float __y1, float __x3, float __y3) {
+	float eps = 0.01;
+	assert(__x1 <= 1 + eps && __x1 >= -1 - eps);
+	assert(__y1 <= 1 + eps && __y1 >= -1 - eps);
+	assert(__x3 <= 1 + eps && __x3 >= -1 - eps);
+	assert(__y3 <= 1 + eps && __y3 >= -1 - eps);
+
 	xy1.x = __x1;
 	xy1.y = __y1;
 	xy3.x = __x3;

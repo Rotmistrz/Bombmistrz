@@ -1,11 +1,15 @@
 #include "Game.h"
 
-Game::Game(PlayerManager* __players, Map* __map)
+Game::Game(
+	const std::shared_ptr<PlayerManager>& __players, 
+	const std::shared_ptr<Map>& __map)
 : playerManager(__players), map(__map) {
 	if (playerManager == nullptr)
 		MessageBox(0, "wskaznik na obiekt PlayerManager jest rowny NULL. Zaladuj ponownie obiekt!", 0, 0);
 	if (map == nullptr)
 		MessageBox(0, "wskaznik na obiekt Map jest rowny NULL. Zaladuj ponownie obiekt!", 0, 0);
+
+	bombManager = std::make_unique<BombManager>(BombManager());
 }
 
 Game::Game() {
@@ -25,9 +29,9 @@ Game::~Game() {
 }
 
 void Game::genVertexBuffer() {
-	GLuint vao;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+//	GLuint vao;
+//	glGenVertexArrays(1, &vao);
+//	glBindVertexArray(vao);
 
 	//tworze bufor na kordynaty graczy
 	glGenBuffers(1, &vertexBufferId);
@@ -68,6 +72,8 @@ void Game::genVertexBuffer() {
 			map->GetSizeInBytes(),
 			map->getFirstTabElement());
 	}
+
+//	glBindVertexArray(0);
 }
 
 GLchar* Game::loadShader(
