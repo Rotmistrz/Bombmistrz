@@ -36,7 +36,7 @@ public:
 	Square(float, float, float, float);
 	
 	/*
-	* arg1: polozenie lewego gornego wierzcholka kwadratu
+	* arg1: polozenie lewego gornego wierzcholka kwadratu w przedzialcze x = <0, wysokosc> ; y = <0, szerokosc> 
 	* arg2: dlugosc boku kwadratu
 	* arg3: kolor kwadratu
 	* arg4: szerokosc okna aplikacji

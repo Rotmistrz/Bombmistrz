@@ -7,6 +7,9 @@
 class Game {
 public:
 	GLuint vertexBufferId;
+	GLuint bombBufferId;
+	GLuint vao; //moze bedzie w przyszlosci potrzebne dla roznych layoutow potoku renderowania
+	GLuint bombVao;
 	std::shared_ptr<PlayerManager> playerManager;
 	std::unique_ptr<BombManager> bombManager;
 	std::shared_ptr<Map> map;
@@ -26,6 +29,7 @@ public:
 	GLuint texturesId[2];
 
 	GLuint uniformPlayers;
+	GLuint uniformBomb;
 public:
 	Game();
 	Game(const std::shared_ptr<PlayerManager>&, const std::shared_ptr<Map>&);

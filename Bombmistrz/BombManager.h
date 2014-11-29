@@ -2,15 +2,20 @@
 #include "Header.h"
 #include "Bomb.h"
 
+typedef unsigned int uint;
 class BombManager {
 
 	std::vector<Bomb> bombVec;
 	std::vector<float> corVec;
+
+	uint numOfBombs = 40;
 public:
 	BombManager();
 	virtual ~BombManager();
 
 	Bomb* getBomb(uint);
+
+	void setCorVec();
 
 	inline GLuint getCorSize() {
 		return corVec.size();

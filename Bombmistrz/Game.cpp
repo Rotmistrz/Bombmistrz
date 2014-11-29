@@ -17,6 +17,7 @@ Game::Game() {
 
 Game::~Game() {
 	glDeleteBuffers(1, &vertexBufferId);
+	glDeleteBuffers(1, &bombBufferId);
 	glDeleteTextures(2, texturesId);
 	glUseProgram(0);
 	glDisableVertexAttribArray(0);
@@ -34,6 +35,7 @@ void Game::genVertexBuffer() {
 //	glBindVertexArray(vao);
 
 	//tworze bufor na kordynaty graczy
+	glGenBuffers(1, &bombBufferId);
 	glGenBuffers(1, &vertexBufferId);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferId);
@@ -73,7 +75,14 @@ void Game::genVertexBuffer() {
 			map->getFirstTabElement());
 	}
 
-//	glBindVertexArray(0);
+	//osobny bufor na koordynaty bomb etc.
+	glBindBuffer(GL_ARRAY_BUFFER, bombBufferId);
+	glBufferData(
+		GL_ARRAY_BUFFER, 
+		bombManager->GetSizeInBytes(), 
+		bombManager->getFirstTabElement(), 
+		GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 GLchar* Game::loadShader(
@@ -183,6 +192,9 @@ void Game::LoadAndcompileShaders() {
 }
 
 void Game::setLayout() {
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferId);
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 	//layout
 	posAttrib = glGetAttribLocation(shaderProgram, "position");
 	glEnableVertexAttribArray(posAttrib);
@@ -198,6 +210,31 @@ void Game::setLayout() {
 	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (void*)(5 * sizeof(GLfloat)));
 
 	uniformPlayers = glGetUniformLocation(shaderProgram, "translation");
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	/**************************************************/
+	glBindBuffer(GL_ARRAY_BUFFER, bombBufferId);
+	glGenVertexArrays(1, &bombVao);
+	glBindVertexArray(bombVao);
+
+
+	posAttrib = glGetAttribLocation(shaderProgram, "position");
+	glEnableVertexAttribArray(posAttrib);
+	//2 wartosci to pozycja + skok co 5
+	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), 0);
+	//3 wartosci to kolor + skok co 5, przesuniecie 2 w stosunku do pierwszego elementu
+	colAttrib = glGetAttribLocation(shaderProgram, "color");
+	glEnableVertexAttribArray(colAttrib);
+	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
+
+	texAttrib = glGetAttribLocation(shaderProgram, "texture");
+	glEnableVertexAttribArray(texAttrib);
+	glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (void*)(5 * sizeof(GLfloat)));
+
+	uniformBomb = glGetUniformLocation(shaderProgram, "translation");
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Game::bindAndUploadTex() {
@@ -280,8 +317,10 @@ void Game::drawAll() {
 			4 * i,
 			4);
 	}*/
-//	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturesId[0]);
+//	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferId);
+	glBindVertexArray(vao);
+
 	if (map != nullptr) {
 		Vertex2f _uniform{ .0f, .0f };
 		glUniform2f(uniformPlayers, _uniform.x, _uniform.y);
@@ -303,4 +342,12 @@ void Game::drawAll() {
 			draw(i);
 	}
 	glDisable(GL_TEXTURE_2D);
+	glBindVertexArray(0);
+
+	glBindVertexArray(bombVao);
+	//draw bombs
+	glBindVertexArray(0);
+
+//	glBindBuffer(GL_ARRAY_BUFFER, bombBufferId);
+//	glBindBuffer(GL_ARRAY_BUFFER, bombBufferId);
 }
