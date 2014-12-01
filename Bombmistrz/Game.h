@@ -5,13 +5,15 @@
 #include "BombManager.h"
 
 class Game {
-public:
+	uint width;
+	uint height;
+
 	GLuint vertexBufferId;
 	GLuint bombBufferId;
 	GLuint vao; //moze bedzie w przyszlosci potrzebne dla roznych layoutow potoku renderowania
 	GLuint bombVao;
 	std::shared_ptr<PlayerManager> playerManager;
-	std::unique_ptr<BombManager> bombManager;
+	std::shared_ptr<BombManager> bombManager;
 	std::shared_ptr<Map> map;
 
 	GLuint vertexShader;
@@ -26,23 +28,42 @@ public:
 	GLuint colAttrib;
 	GLuint texAttrib;
 	sf::Image imgData;
-	GLuint texturesId[2];
+	// 0 -> map tex, 1 -> players tex, 2 -> bomb tex
+	GLuint texturesId[3];
 
 	GLuint uniformPlayers;
 	GLuint uniformBomb;
+
+	//odrysowanie bomb
+	void drawBombs();
+
+	//odrysowanie wszystkich graczy
+	void drawPlayers();
+
+	//odrysowanie mapy
+	void drawMap();
+
+	//odrysowanie i-tego gracza
+	void draw(uint);
 public:
-	Game();
-	Game(const std::shared_ptr<PlayerManager>&, const std::shared_ptr<Map>&);
+	Game(uint, uint);
+	Game(
+		const std::shared_ptr<PlayerManager>&, 
+		const std::shared_ptr<Map>&, 
+		const std::shared_ptr<BombManager>&, 
+		uint, 
+		uint);
 	~Game();
 
 	void genVertexBuffer();
 	void setLayout();
 	GLchar* loadShader(const std::string&, uint&);
 	void LoadAndcompileShaders();
-	void draw(uint);
 	void drawAll();
 	Player* getPlayer(uint);
 
 	void bindAndUploadTex();
+
+	void setBomb(Vertex2f);
 };
 

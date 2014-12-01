@@ -11,9 +11,15 @@ void BombManager::setCorVec() {
 	}
 }
 
-BombManager::BombManager() {
+BombManager::BombManager(
+	Vertex2f __point, 
+	float __side, 
+	Vertex3f __color, 
+	uint __w, 
+	uint __h) {
+
 	for (uint i = 0; i < numOfBombs; i++) {
-		bombVec.push_back(Bomb(1.0f, -1.0f, .9f, -.9f));
+		bombVec.push_back(Bomb(__point, __side, __color, __w, __h));
 	}
 
 	setCorVec();
@@ -23,7 +29,7 @@ BombManager::~BombManager() {
 }
 
 Bomb* BombManager::getBomb(uint __i) {
-	uint i = 0;
+	uint i = 0; 
 	for (auto& b : bombVec) {
 		if (i == __i)
 			return &b;
@@ -31,4 +37,14 @@ Bomb* BombManager::getBomb(uint __i) {
 	}
 
 	return nullptr;
+}
+
+void BombManager::setBomb(Vertex2f __pos) {
+	for (auto& b : bombVec) {
+		if (!b.isActive()) {
+			b.set(__pos.x, __pos.y);
+			b.setActive();
+			return;
+		}
+	}
 }

@@ -4,7 +4,6 @@
 #include "Map.h"
 
 class Player: public Square {
-	GLuint playerTexId;
 	sf::Image imgData;
 
 	//zmienna pomocnicza. Nie musze co chwile tworzyc nowego floata
@@ -145,6 +144,14 @@ public:
 
 	inline Vertex2f getTranslation() {
 		return translate;
+	}
+
+	Vertex2f getPosition() {
+		Vertex2f _position{ .0f, .0f };
+		_position.x = xy1.x + translate.x;
+		_position.y = xy1.y + translate.y;
+
+		return _position;
 	}
 };
 

@@ -1,0 +1,14 @@
+﻿Build started 2014-12-01 20:27:34.
+     1>Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\UTests.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.dll" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\lib /LIBPATH:C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\UnitTest\lib" Bombmistrz.lib "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" kernel32.lib /MANIFEST:NO /DEBUG /PDB:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /APPCONTAINER /WINMD /WINMDFILE:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.winmd" /DYNAMICBASE /NXCOMPAT /MACHINE:X86 /DLL Debug\pch.obj
+         Debug\unittest1.obj
+            Creating library C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.lib and object C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.exp
+         UTests.vcxproj -> C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.dll
+       _GenerateProjectPriFileCore:
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x64\MakePri.exe New -ProjectRoot C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\ -ConfigXml Debug\priconfig.xml -OutputFile C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\resources.pri -IndexName 4f65df93-e2f9-49a3-90b1-273d6e760ed9 -Verbose -Overwrite  
+     1>Done Building Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\UTests.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.61

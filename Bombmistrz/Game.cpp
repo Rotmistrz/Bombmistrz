@@ -2,17 +2,34 @@
 
 Game::Game(
 	const std::shared_ptr<PlayerManager>& __players, 
-	const std::shared_ptr<Map>& __map)
-: playerManager(__players), map(__map) {
+	const std::shared_ptr<Map>& __map,
+	const std::shared_ptr<BombManager>& __bombs,
+	uint __w, 
+	uint __h)
+: width(__w), height(__h), playerManager(__players), map(__map) {
 	if (playerManager == nullptr)
 		MessageBox(0, "wskaznik na obiekt PlayerManager jest rowny NULL. Zaladuj ponownie obiekt!", 0, 0);
 	if (map == nullptr)
 		MessageBox(0, "wskaznik na obiekt Map jest rowny NULL. Zaladuj ponownie obiekt!", 0, 0);
-
-	bombManager = std::make_unique<BombManager>(BombManager());
+	if (__bombs == nullptr)
+		MessageBox(0, "wskaznik na obiekt BombManager jest rowny NULL. Zaladuj ponownie obiekt!", 0, 0);
+	bombManager = __bombs;
+		/*std::make_unique<BombManager>(BombManager(
+		Vertex2f{ static_cast<float>(__w) / 2.0f, static_cast<float>(__h) / 2.0f }, 
+		playerManager->getPlayer(1)->getSide(), 
+		Vertex3f{ .0f, 1.0f, 1.0f }, 
+		width, 
+		height));*/
 }
 
-Game::Game() {
+Game::Game(uint __w, uint __h)
+: width(__w), height(__h) {
+		/*std::make_unique<BombManager>(BombManager(
+		Vertex2f{ .0f, .0f },
+		playerManager->getPlayer(1)->getSide(),
+		Vertex3f{ .0f, 1.0f, 1.0f },
+		width,
+		height));*/
 }
 
 Game::~Game() {
@@ -238,11 +255,11 @@ void Game::setLayout() {
 }
 
 void Game::bindAndUploadTex() {
-	glGenTextures(2, texturesId);
+	glGenTextures(3, texturesId);
 
 //	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturesId[0]);
-	bool _result = imgData.loadFromFile("images/Kafelki/SoftBlock.jpg");
+	bool _result = imgData.loadFromFile("images/Kafelki/SoftBlock2.png");
 	
 	if (!_result)
 		MessageBox(0, "Nie mozna wczytac tekstury mapy!", 0, 0);
@@ -264,12 +281,38 @@ void Game::bindAndUploadTex() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glDisable(GL_TEXTURE_2D);
 
+	/*********************************************/
 
 //	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, texturesId[1]);
 	bool _result_2 = imgData.loadFromFile("images/Ludzik/Bombmistrz - projekt ludzika.jpg");
 
 	if (!_result_2)
+		MessageBox(0, "Nie mozna wczytac tektrusty gracza!", 0, 0);
+	//wczytanie jpg do bufora
+	glTexImage2D(
+		GL_TEXTURE_2D,
+		0,
+		GL_RGBA,
+		imgData.getSize().y,
+		imgData.getSize().x,
+		0,
+		GL_RGBA,
+		GL_UNSIGNED_BYTE,
+		imgData.getPixelsPtr());
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glDisable(GL_TEXTURE_2D);
+
+	/*********************************************/
+
+	glBindTexture(GL_TEXTURE_2D, texturesId[2]);
+	bool _result_3 = imgData.loadFromFile("images/Kafelki/Bomb.png");
+
+	if (!_result_3)
 		MessageBox(0, "Nie mozna wczytac tektrusty gracza!", 0, 0);
 	//wczytanie jpg do bufora
 	glTexImage2D(
@@ -308,19 +351,45 @@ void Game::draw(uint __number) {
 		4);
 }
 
-void Game::drawAll() {
-	//renderuje wszystkich graczy na scenie
-	/*
-	for (uint i = 0; i < playerManager->getSize(); i++) {
+void Game::drawBombs() {
+	glBindTexture(GL_TEXTURE_2D, texturesId[2]);
+	Vertex2f _uniform{ .0f, .0f };
+
+	//petla iteruje po wszystkich bombach az natrafi na pierwsz nieaktywna. Oznacza to
+	//,ze reszta dalszych bomb tez jest nieaktywna i mozna zakonczyc iteracje
+	for (uint i = 0; i < bombManager->getSize(); i++) {
+		auto _b = bombManager->getBomb(i);
+
+		if (!_b->isActive())
+			continue;
+
+		//pobiera uniforma bomby
+		_uniform = _b->getUniform();
+		//update uniforma w shaderze
+
+		glUniform2f(uniformBomb, _uniform.x, _uniform.y);
+
+		//rendering
 		glDrawArrays(
 			GL_POLYGON,
 			4 * i,
 			4);
-	}*/
-	glBindTexture(GL_TEXTURE_2D, texturesId[0]);
-//	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferId);
-	glBindVertexArray(vao);
+	}
 
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Game::drawPlayers() {
+	glBindTexture(GL_TEXTURE_2D, texturesId[1]);
+	if (playerManager != nullptr) {
+		for (uint i = 1; i <= playerManager->getSize(); i++)
+			draw(i);
+	}
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Game::drawMap() {
+	glBindTexture(GL_TEXTURE_2D, texturesId[0]);
 	if (map != nullptr) {
 		Vertex2f _uniform{ .0f, .0f };
 		glUniform2f(uniformPlayers, _uniform.x, _uniform.y);
@@ -333,21 +402,20 @@ void Game::drawAll() {
 				4);
 		}
 	}
-	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
 
-//	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, texturesId[1]);
-	if (playerManager != nullptr) {
-		for (uint i = 1; i <= playerManager->getSize(); i++)
-			draw(i);
-	}
-	glDisable(GL_TEXTURE_2D);
-	glBindVertexArray(0);
-
+void Game::drawAll() {
 	glBindVertexArray(bombVao);
-	//draw bombs
+	drawBombs();
 	glBindVertexArray(0);
+	
+	glBindVertexArray(vao);
+	drawMap();
+	drawPlayers();
+	glBindVertexArray(0);
+}
 
-//	glBindBuffer(GL_ARRAY_BUFFER, bombBufferId);
-//	glBindBuffer(GL_ARRAY_BUFFER, bombBufferId);
+void Game::setBomb(Vertex2f __pos) {
+	bombManager->setBomb(__pos);
 }

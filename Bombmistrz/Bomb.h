@@ -16,6 +16,7 @@ public:
 	//arg3: x3
 	//arg4: y3
 	Bomb(float, float, float, float);
+	Bomb(Vertex2f, float, Vertex3f, uint, uint);
 	virtual ~Bomb();
 
 	//resetuje bombe i przesuniecie
@@ -26,10 +27,16 @@ public:
 
 	//dodaje czas do aktualnego czasu pozostalego do wybuchu
 	inline bool updateTime(float __dt) {
-		timeToExplosion += __dt;
-		if (timeToExplosion > explosionTime)
+		if (active == false)
 			return false;
-		return true;
+
+		timeToExplosion += __dt;
+		if (timeToExplosion > explosionTime) {
+			reset();
+			active = false;
+			return true;
+		}
+		return false;
 	}
 
 	//ustawia aktualne przesuniecie wzgledem pozycji wejsciowej
@@ -41,6 +48,30 @@ public:
 	//ustawia aktualne przesuniecie wzgledem pozycji wejsciowej, tylko za pomoca struktury Vertex2f
 	inline void set(Vertex2f __v) {
 		uniform = __v;
+	}
+
+	inline Vertex2f getUniform() {
+		return uniform;
+	}
+
+	bool isActive() {
+		return active;
+	}
+
+	void setActive() {
+		active = true;
+	}
+
+	void disActive() {
+		active = false;
+	}
+
+	void setExplosionTime(float __time) {
+		explosionTime = __time;
+	}
+
+	inline float getExplosionTime() {
+		return explosionTime;
 	}
 };
 

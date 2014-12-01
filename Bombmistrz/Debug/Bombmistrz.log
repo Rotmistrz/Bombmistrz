@@ -1,6 +1,17 @@
-﻿Build started 2014-11-29 16:10:53.
+﻿Build started 2014-12-01 20:35:25.
      1>Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\Bombmistrz.vcxproj" on node 2 (Build target(s)).
-     1>Link:
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Bomb.cpp BombManager.cpp Game.cpp main.cpp
+         Bomb.cpp
+         Generating Code...
+         Compiling...
+         main.cpp
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\main.cpp(51): warning C4244: 'initializing' : conversion from 'uint' to 'float', possible loss of data
+         BombManager.cpp
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         Game.cpp
+       Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\Bombmistrz.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\lib opengl32.lib glew32.lib "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\Bombmistrz.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\Bombmistrz.lib" /MACHINE:X86 Debug\Bomb.obj
          Debug\BombManager.obj
          Debug\Brick.obj
@@ -10,10 +21,9 @@
          Debug\Player.obj
          Debug\PlayerManager.obj
          Debug\Square.obj
-         LINK : C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\Bombmistrz.exe not found or not built by the last incremental link; performing full link
          Bombmistrz.vcxproj -> C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\Bombmistrz.exe
      1>Done Building Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\Bombmistrz.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.56
+Time Elapsed 00:00:06.05

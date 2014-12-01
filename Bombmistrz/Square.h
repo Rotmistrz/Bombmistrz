@@ -50,5 +50,9 @@ public:
 	* w zdefiniowanym layout'cie
 	*/
 	std::vector<float> giveFloatVec();
+
+	float getSide() {
+		return side;
+	}
 };
 

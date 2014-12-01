@@ -5,12 +5,15 @@
 typedef unsigned int uint;
 class BombManager {
 
+	//std::vector przechowywujacy n bomb
 	std::vector<Bomb> bombVec;
+	//std::vector przechowywujacy informacje o bombach jak polozenie, color, tex gotowa do transferu na gpu
 	std::vector<float> corVec;
 
+	//maksymaln ilosc bomb jaka moze przechowywac manager
 	uint numOfBombs = 40;
 public:
-	BombManager();
+	BombManager(Vertex2f, float, Vertex3f, uint, uint);
 	virtual ~BombManager();
 
 	Bomb* getBomb(uint);
@@ -36,5 +39,14 @@ public:
 	inline float* getLastTabElement() {
 		return &corVec[corVec.size() - 1];
 	}
+
+	void updateTime(float __dt) {
+		for (auto& b : bombVec) {
+			if (b.isActive())
+				b.updateTime(__dt);
+		}
+	}
+
+	void setBomb(Vertex2f);
 };
 

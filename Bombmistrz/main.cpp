@@ -57,14 +57,21 @@ int main(int __arg0, char* __arg1[]) {
 	v.push_back(p);
 	v.push_back(p2);
 	auto pm = std::make_shared<PlayerManager>(std::move(v)); //= new PlayerManager(std::move(v));
-
-	Game game(pm, map);
+	auto bombs = std::make_shared<BombManager>(
+		Vertex2f{ static_cast<float>(r.w) / 2.0f, static_cast<float>(r.h) / 2.0f },
+		pm->getPlayer(1)->getSide(),
+		Vertex3f{ .0f, 1.0f, 1.0f },
+		r.w,
+		r.h);
+	Game game(pm, map, bombs, r.w, r.h);
 	game.genVertexBuffer();
 	game.LoadAndcompileShaders();
 	game.setLayout();
 	game.bindAndUploadTex();
 	
 	
+	bool wasPressedSpace = false;
+	bool wasPressedQ = false;
 	sf::Clock clock;
 	while (window.isOpen()) {
 		float elapsed_time = static_cast<float>(clock.getElapsedTime().asSeconds());
@@ -90,6 +97,17 @@ int main(int __arg0, char* __arg1[]) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 			pm->getPlayer(1)->moveDown(elapsed_time);
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			if (wasPressedSpace == false) {
+				game.setBomb(pm->getPlayer(1)->getPosition());
+				wasPressedSpace = true;
+			}
+		}
+		else {
+			if (wasPressedSpace == true) {
+				wasPressedSpace = false;
+			}
+		}
 		
 		//logika klawiatura - wsad
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
@@ -104,11 +122,22 @@ int main(int __arg0, char* __arg1[]) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 			pm->getPlayer(2)->moveRight(elapsed_time);
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+			if (wasPressedQ == false) {
+				game.setBomb(pm->getPlayer(2)->getPosition());
+				wasPressedQ = true;
+			}
+		}
+		else {
+			if (wasPressedQ == true) {
+				wasPressedQ = false;
+			}
+		}
 
 		//wyczysczenie bufora na kolor czarny
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-
+		bombs->updateTime(elapsed_time);
 		//renderowanie pierwszego gracza
 	//	game.draw(1);
 		//renderowanie drugiego gracza
