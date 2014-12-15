@@ -285,7 +285,7 @@ void Game::bindAndUploadTex() {
 
 //	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, texturesId[1]);
-	bool _result_2 = imgData.loadFromFile("images/Ludzik/Bombmistrz - projekt ludzika.jpg");
+	bool _result_2 = imgData.loadFromFile("images/Ludzik/ludzik.png");
 
 	if (!_result_2)
 		MessageBox(0, "Nie mozna wczytac tektrusty gracza!", 0, 0);
@@ -382,8 +382,11 @@ void Game::drawBombs() {
 void Game::drawPlayers() {
 	glBindTexture(GL_TEXTURE_2D, texturesId[1]);
 	if (playerManager != nullptr) {
-		for (uint i = 1; i <= playerManager->getSize(); i++)
-			draw(i);
+		for (uint i = 1; i <= playerManager->getSize(); i++) {
+			if (playerManager->isActive(i)) {
+				draw(i);
+			}
+		}
 	}
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
@@ -396,6 +399,9 @@ void Game::drawMap() {
 
 		uint _offset = playerManager->getSize() * 4;
 		for (uint i = 0; i < map->getSize(); i++) {
+			if (map->isNullPtr(i))
+				continue;
+
 			glDrawArrays(
 				GL_POLYGON,
 				4 * i + _offset,

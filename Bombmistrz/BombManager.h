@@ -13,7 +13,14 @@ class BombManager {
 	//maksymaln ilosc bomb jaka moze przechowywac manager
 	uint numOfBombs = 40;
 public:
-	BombManager(Vertex2f, float, Vertex3f, uint, uint);
+	BombManager(
+		Vertex2f, 
+		float, 
+		Vertex3f, 
+		uint, uint, 
+		const std::shared_ptr<Map>&,
+		const std::shared_ptr<PlayerManager>&);
+
 	virtual ~BombManager();
 
 	Bomb* getBomb(uint);

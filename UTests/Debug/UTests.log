@@ -1,14 +1,20 @@
-﻿Build started 2014-12-01 20:27:34.
-     1>Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\UTests.vcxproj" on node 2 (Build target(s)).
-     1>Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.dll" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\lib /LIBPATH:C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\UnitTest\lib" Bombmistrz.lib "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" kernel32.lib /MANIFEST:NO /DEBUG /PDB:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /APPCONTAINER /WINMD /WINMDFILE:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.winmd" /DYNAMICBASE /NXCOMPAT /MACHINE:X86 /DLL Debug\pch.obj
-         Debug\unittest1.obj
-            Creating library C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.lib and object C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.exp
-         UTests.vcxproj -> C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.dll
-       _GenerateProjectPriFileCore:
-         C:\Program Files (x86)\Windows Kits\8.1\bin\x64\MakePri.exe New -ProjectRoot C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\ -ConfigXml Debug\priconfig.xml -OutputFile C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\resources.pri -IndexName 4f65df93-e2f9-49a3-90b1-273d6e760ed9 -Verbose -Overwrite  
-     1>Done Building Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\UTests.vcxproj" (Build target(s)).
+﻿Build started 2014-12-15 20:40:25.
+     1>Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\UTests.vcxproj" on node 3 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz /IC:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\include /I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\UnitTest\include" /IC:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\ /I"Generated Files\\" /IDebug\ /ZI /ZW /ZW:nostdlib /nologo /W3 /WX- /sdl /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDLL /D _UNICODE /D UNICODE /D _DEBUG /D WINAPI_FAMILY=WINAPI_FAMILY_APP /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"pch.h" /Fp"Debug\UTests.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /FU"C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\Microsoft.VCLibs\12.0\References\CommonConfiguration\neutral\platform.winmd" /FU"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd" /FU"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd" /analyze- /FC /errorReport:prompt unittest1.cpp
+         unittest1.cpp
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\map.h(201): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(159): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(160): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(161): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(162): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\playermanager.h(64): warning C4018: '<=' : signed/unsigned mismatch
+     1>c:\program files (x86)\microsoft visual studio 12.0\vc\include\memory(1639): error C2661: 'Bomb::Bomb' : no overloaded function takes 4 arguments
+                 c:\users\mrlukashem\documents\github\bombmistrz\utests\unittest1.cpp(19) : see reference to function template instantiation 'std::unique_ptr<Bomb,std::default_delete<Bomb>> std::make_unique<Bomb,float,float,float,float>(float &&,float &&,float &&,float &&)' being compiled
+     1>c:\program files (x86)\microsoft visual studio 12.0\vc\include\memory(1639): error C2661: 'BombManager::BombManager' : no overloaded function takes 5 arguments
+                 c:\users\mrlukashem\documents\github\bombmistrz\utests\unittest1.cpp(42) : see reference to function template instantiation 'std::unique_ptr<BombManager,std::default_delete<BombManager>> std::make_unique<BombManager,Vertex2f,double,Vertex3f,int,int>(Vertex2f &&,double &&,Vertex3f &&,int &&,int &&)' being compiled
+     1>Done Building Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\UTests.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:02.61
+Time Elapsed 00:00:02.57

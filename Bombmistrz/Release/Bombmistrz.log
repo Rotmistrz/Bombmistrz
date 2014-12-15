@@ -1,25 +1,9 @@
-﻿Build started 2014-12-01 20:36:15.
+﻿Build started 2014-12-05 20:48:06.
      1>Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\Bombmistrz.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D SFML_STATIC /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Bomb.cpp BombManager.cpp Game.cpp main.cpp
-         Bomb.cpp
-         BombManager.cpp
-         Game.cpp
-         main.cpp
-     1>main.cpp(51): warning C4244: 'initializing' : conversion from 'uint' to 'float', possible loss of data
-       Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Release\Bombmistrz.lib" /NOLOGO /LTCG Release\Bomb.obj
-         Release\BombManager.obj
-         Release\Brick.obj
-         Release\Game.obj
-         Release\main.obj
-         Release\Map.obj
-         Release\Player.obj
-         Release\PlayerManager.obj
-         Release\Square.obj
-         Bombmistrz.vcxproj -> C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Release\Bombmistrz.lib
+     1>Link:
+         Bombmistrz.vcxproj -> C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Release\Bombmistrz.exe
      1>Done Building Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\Bombmistrz.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:06.02
+Time Elapsed 00:00:01.20

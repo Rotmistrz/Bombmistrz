@@ -153,5 +153,21 @@ public:
 
 		return _position;
 	}
+
+	Vertex4f getPosInRowsCols() {
+		//wektor 4-elementowy
+		//0 - kolumna 1
+		//1 - kolumna 2
+		//2 - wiersz 1
+		//3 - wiersz 2
+		Vertex4f _pos;
+
+		_pos.x = mapPtr->getPosInRows(xy1.y + translate.y);
+		_pos.y = mapPtr->getPosInRows(xy3.y + translate.y);
+		_pos.z = mapPtr->getPosInCols(xy1.x + translate.x);
+		_pos.t = mapPtr->getPosInCols(xy2.x + translate.x);
+
+		return _pos;
+	}
 };
 

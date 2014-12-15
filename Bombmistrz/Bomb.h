@@ -1,7 +1,10 @@
 #pragma once
 #include "Header.h"
 #include "Square.h"
+#include "Map.h"
+#include "PlayerManager.h"
 
+typedef std::shared_ptr<PlayerManager> spointerPM;
 class Bomb: public Square {
 	//czas w jakim po uruchomieniu bomby, wybuchnie ona
 	float timeToExplosion = .0f;
@@ -9,19 +12,23 @@ class Bomb: public Square {
 	//przesuniecie wzgledem pozycji wejsciowej
 	bool active = false;
 	Vertex2f uniform;
+
+	uint power = 2;
+	std::shared_ptr<Map> map;
+	spointerPM pm;
 public:
 	//konstruktor wywolujacy konstruktor klasy Square
 	//arg1: x1
 	//arg2: y1
 	//arg3: x3
 	//arg4: y3
-	Bomb(float, float, float, float);
-	Bomb(Vertex2f, float, Vertex3f, uint, uint);
+	Bomb(float, float, float, float, const std::shared_ptr<Map>&, const spointerPM&);
+	Bomb(Vertex2f, float, Vertex3f, uint, uint, const std::shared_ptr<Map>&, const spointerPM&);
 	virtual ~Bomb();
 
 	//resetuje bombe i przesuniecie
 	inline void reset() {
-		timeToExplosion = .0f;
+		timeToExplosion = .0f; // == 0.0f;
 		uniform = .0f;
 	}
 
@@ -31,9 +38,39 @@ public:
 			return false;
 
 		timeToExplosion += __dt;
+		//eksplozja!
 		if (timeToExplosion > explosionTime) {
-			reset();
 			active = false;
+
+			Vertex2f _center = getCenter();
+			uint _col = map->getPosInCols(uniform.x + side_w / 2.0f);
+			uint _row = map->getPosInRows(uniform.y - side_h / 2.0f);
+			int _left_edge = static_cast<int>(_col) - static_cast<int>(power);
+			int _right_edge = static_cast<int>(_col) + static_cast<int>(power);
+			int _up_edge = static_cast<int>(_row) + static_cast<int>(power);
+			int _down_edge = static_cast<int>(_row) - static_cast<int>(power);
+
+			for (int i = _left_edge; i <= _right_edge; i++) {
+				map->removeElement(_row, i);
+				//if playermanager->isPlayer(i...j[player])(row,col);
+				auto _players_in_area = pm->isPlayers(_row, i);
+				if (_players_in_area.size() != 0) {
+					for (auto i_ : _players_in_area) {
+						pm->removePlayer(i_);
+					}
+				}
+			}
+			for (int i = _down_edge; i <= _up_edge; i++) {
+				map->removeElement(i, _col);
+				auto _players_in_area = pm->isPlayers(i, _col);
+				if (_players_in_area.size() != 0) {
+					for (auto i_ : _players_in_area) {
+						pm->removePlayer(i_);
+					}
+				}
+			}
+
+			reset();
 			return true;
 		}
 		return false;
@@ -41,13 +78,19 @@ public:
 
 	//ustawia aktualne przesuniecie wzgledem pozycji wejsciowej
 	inline void set(float __x, float __y) {
-		uniform.x = __x;
-		uniform.y = __y;
+		Vertex2f _in{ __x + side_w / 2.0f, __y - side_h / 2.0f};
+		uniform = map->getXY1ofTheNearestBrick(_in);
+//		uniform.x = __x;
+//		uniform.y = __y;
 	}
 
 	//ustawia aktualne przesuniecie wzgledem pozycji wejsciowej, tylko za pomoca struktury Vertex2f
 	inline void set(Vertex2f __v) {
-		uniform = __v;
+		Vertex2f _in = __v;
+		_in.x += side_w / 2.0f;
+		_in.y -= side_h / 2.0f;
+//		uniform = __v;
+		uniform = map->getXY1ofTheNearestBrick(_in);
 	}
 
 	inline Vertex2f getUniform() {

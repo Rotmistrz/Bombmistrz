@@ -1,0 +1,11 @@
+﻿Build started 2014-12-05 20:48:06.
+     1>Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\UTests.vcxproj" on node 3 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\UnitTest\include" /IC:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\ /I"Generated Files\\" /IRelease\ /Zi /ZW /ZW:nostdlib /nologo /W3 /WX- /sdl /MP /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDLL /D _UNICODE /D UNICODE /D WINAPI_FAMILY=WINAPI_FAMILY_APP /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"pch.h" /Fp"Release\UTests.pch" /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /FU"C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1\ExtensionSDKs\Microsoft.VCLibs\12.0\References\CommonConfiguration\neutral\platform.winmd" /FU"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd" /FU"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd" /analyze- /FC /errorReport:prompt unittest1.cpp
+         unittest1.cpp
+     1>c:\users\mrlukashem\documents\github\bombmistrz\utests\unittest1.cpp(3): fatal error C1083: Cannot open include file: 'Bomb.h': No such file or directory
+     1>Done Building Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\UTests\UTests.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:02.35

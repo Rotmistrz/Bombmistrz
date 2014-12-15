@@ -18,6 +18,7 @@ class PlayerManager {
 
 	GLuint _uniform_vec2;*/
 	std::vector<Player>* vec;
+	std::vector<bool> activePlayers;
 	std::vector<float> corVec;
 public:
 	PlayerManager(std::vector<Player>*);
@@ -58,5 +59,13 @@ public:
 	inline float* getLastTabElement() {
 		return &corVec[corVec.size() - 1];
 	}
+
+	inline bool isActive(int __i) {
+		assert(__i > 0 && __i <= activePlayers.size());
+		return activePlayers[__i - 1];
+	}
+
+	std::vector<int> isPlayers(int, int);
+	void removePlayer(int);
 };
 

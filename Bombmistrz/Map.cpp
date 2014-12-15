@@ -10,6 +10,12 @@ void Map::setCorVec() {
 				corVec.push_back(*itr2);
 			}
 		}
+		else {
+			auto _tmp = Square::giveEmptyFloatVec();
+			for (auto itr2 = _tmp.begin(); itr2 != _tmp.end(); ++itr2) {
+				corVec.push_back(*itr2);
+			}
+		}
 	}
 }
 
@@ -48,8 +54,8 @@ Map::Map(uint __w, uint __h, const vec2dChar& __vec)
 		_a_cols *= 2.0f;
 	}
 	//liczba kolumn i wierszy + dlugosc boku cegielek
-	numberOfCols = __vec.size();
-	numberOfRows = __vec.size();
+	numberOfCols = __vec[0].size();
+	numberElementsInRow = __vec[0].size();
 	aX = _a_cols;
 	aY = _a_rows;
 
@@ -119,6 +125,15 @@ ptrVec2dChar Map::loadMapFromFile(const std::string& __str) {
 
 	return _resultVec;
 }
+
+void Map::removeElement(uint __row, uint __col) {
+	int _index = numberElementsInRow * __row + __col;
+	if (_index >= vec.size())
+		return;
+
+	vec[numberElementsInRow * __row + __col].reset();
+}
+
 /*
 bool Map::loadImageFromFile(const std::string& __file_name) {
 	bool _result = imgData.loadFromFile(__file_name);

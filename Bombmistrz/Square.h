@@ -13,12 +13,19 @@ protected:
 
 	Vertex2f xy2; //wierzcholek gorny prawy
 	Vertex2f xy4; //wierzcholek dolny lewy
-	float side; //bok kwadratu
+	float side = .0f; //bok kwadratu
+
+	//dlugosc sciany zalezy od proporcji ekranu 
+	//dlugosc sciany na szerokosc
+	float side_h = .0f;
+	//na wysokosc
+	float side_w = .0f;
 
 	Vertex2f texX, texY, texZ, texT;
 
 	// prywatna metoda ustawiajaca polozenie tekstury w kwadracie. Tekstury ktora bedzie przydzielona w obiekcie klasy Game
 	void setTexture();
+
 public:
 	/*
 	* arg1: lewy gorny wierzcholek kwadratu w formacie mieszczacy sie w przedziale <-1,1>
@@ -50,9 +57,26 @@ public:
 	* w zdefiniowanym layout'cie
 	*/
 	std::vector<float> giveFloatVec();
+	static std::vector<float> giveEmptyFloatVec();
 
 	float getSide() {
 		return side;
+	}
+
+	inline float getSideH() {
+		return side_h;
+	}
+
+	inline float getSideW() {
+		return side_w;
+	}
+
+	inline Vertex2f getCenter() {
+		return 
+			Vertex2f{
+			xy1.x + (side_w / 2.0f),
+			xy1.y - (side_h / 2.0f)
+			};
 	}
 };
 

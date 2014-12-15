@@ -62,7 +62,9 @@ int main(int __arg0, char* __arg1[]) {
 		pm->getPlayer(1)->getSide(),
 		Vertex3f{ .0f, 1.0f, 1.0f },
 		r.w,
-		r.h);
+		r.h,
+		map,
+		pm);
 	Game game(pm, map, bombs, r.w, r.h);
 	game.genVertexBuffer();
 	game.LoadAndcompileShaders();

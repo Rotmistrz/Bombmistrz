@@ -27,7 +27,7 @@ class Map {
 	//liczba kolumn obliczana na bazie dlugosci boku cegielek
 	uint numberOfCols = 0;
 	//liczba wierszy
-	uint numberOfRows = 0;
+	uint numberElementsInRow = 0;
 	//dlugosc boku kwadratu po osi x
 	float aX = .0f;
 	//dlugosc boku kwadratu po osi y
@@ -36,6 +36,7 @@ class Map {
 	//ustawia corVec
 	void setCorVec();
 public:
+
 	//wczytywanie mapy w odpowiednim formacie z pliku tekstowego
 	//zwraca dwuwymiarowy std::vector char'ow
 	static ptrVec2dChar loadMapFromFile(const std::string&);
@@ -82,8 +83,8 @@ public:
 		return numberOfCols;
 	}
 
-	inline uint getNumberOfRows() {
-		return numberOfRows;
+	inline uint getNumberElementsInRow() {
+		return numberElementsInRow;
 	}
 
 	inline float get_aX() {
@@ -94,6 +95,11 @@ public:
 		return aY;
 	}
 
+	/*
+	* Wyszukuje kolumne w jakiej znajduje sie zadana wspolrzedna x'owa
+	* arg1: wspolrzedna x w przestrzeni gry. Tzn <-1, 1>
+	* return: zwraca kolumne w jakiej znajduje sie x
+	*/
 	inline uint getPosInCols(float __point) {
 		//asercje zabezpieczajace przed wykroczeniem z mapy. Uwzgledniaja maly blad epsilon
 		assert(__point <= 1.0f + 0.05f);
@@ -119,8 +125,8 @@ public:
 	}
 
 	inline uint getPosInRows(float __point) {
-		assert(__point <= 1.0f);
-		assert(__point >= -1.0f);
+		assert(__point <= 1.0f + 0.05f);
+		assert(__point >= -1.0f - 0.05f);
 
 		float _edge = 1.0f;
 		uint _row = 0;
@@ -134,9 +140,68 @@ public:
 		return 0;
 	}
 
+
+	/*
+	* arg1: vector2f przechowywujacy punkt w przestrzeni R2
+	* funkcja wyszukuje najblizsza cegielke na planszy( tzn. kwadrat. Plansza jest podzielona na kwadraciki)
+	* return: koordynaty lewego gornego rogu kwadratu
+	*/
+	Vertex2f getXY1ofTheNearestBrick(Vertex2f __v) {
+		float _edge = 1.0f;
+		Vertex2f _result_point;
+
+		while (_edge >= -1.0) {
+			if (__v.y >= _edge - aY) {
+				_result_point.y = _edge;
+				break;
+			}
+			_edge -= aY;
+		}
+
+		_edge = -1.0f;
+		while (_edge <= 1.0) {
+			if (__v.x <= _edge + aX) {
+				_result_point.x = _edge;
+				break;
+			}
+			_edge += aX;
+		}
+
+		return _result_point;
+	}
+
+	/*
+	* funkcja pobiera kolumne i wiersz. Nastepnie sprawdza czy wskaznik dla danego koordynatu w wektorze cegielek
+	* jest pusty
+	* arg1: interesujaca nas kolumna
+	* arg2: interesujacy nas wiersz
+	* return: jezeli jest obiekt - cegla na planszy -> true, w przeciwnym wypadku false
+	*/
 	inline bool isBrick(uint __col, uint __row) {
-		assert(__row * numberOfRows + __col < vec.size());
-		if (vec[__row * numberOfRows + __col] != nullptr)
+		assert(__row * numberElementsInRow + __col < vec.size());
+		if (vec[__row * numberElementsInRow + __col] != nullptr)
+			return true;
+		return false;
+	}
+
+	/*
+	* funkcja usuwa bloczek znajdujacy sie w danym wierszu i kolumnie z vektora mapy
+	* arg1: wiersz
+	* arg2: kolumna
+	*/
+	void removeElement(uint, uint);
+
+	/*
+	* funkcja stworzona do przegladania vectora vec, ale bez posredniego dostepu do niego w klasie.
+	* zabezpieczona o wykrywanie niepoprawnych indeksow.
+	* arg1: indeks w wektorze vec
+	* return: jezeli wskaznik w wektorze vec wskazuje na jakas cegielke true, w przeciwnym razie false
+	*/
+	inline bool isNullPtr(int __i) {
+		if (__i >= vec.size() || __i < 0)
+			return true;
+
+		if (vec[__i] == nullptr)
 			return true;
 		return false;
 	}

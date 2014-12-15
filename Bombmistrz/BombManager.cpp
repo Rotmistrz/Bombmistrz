@@ -16,10 +16,12 @@ BombManager::BombManager(
 	float __side, 
 	Vertex3f __color, 
 	uint __w, 
-	uint __h) {
+	uint __h,
+	const std::shared_ptr<Map>& __map,
+	const std::shared_ptr<PlayerManager>& __pm) {
 
 	for (uint i = 0; i < numOfBombs; i++) {
-		bombVec.push_back(Bomb(__point, __side, __color, __w, __h));
+		bombVec.push_back(Bomb(__point, __side, __color, __w, __h, __map, __pm));
 	}
 
 	setCorVec();

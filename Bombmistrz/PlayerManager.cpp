@@ -19,11 +19,14 @@ PlayerManager::PlayerManager(std::vector<Player>&& __vec) {
 	vec = new std::vector<Player>(__vec);
 
 	for (auto itr = vec->begin(); itr != vec->end(); ++itr) {
+		activePlayers.push_back(true);
 		std::vector<float> _tmp = itr->giveFloatVec();
 		for (auto itr2 = _tmp.begin(); itr2 != _tmp.end(); ++itr2) {
 			corVec.push_back(*itr2);
 		}
 	}
+
+	assert(vec->size() == activePlayers.size());
 }
 
 PlayerManager::~PlayerManager() {
@@ -50,6 +53,28 @@ Player* PlayerManager::getPlayer(uint __number)	{
 	}
 
 	return nullptr;
+}
+
+std::vector<int> PlayerManager::isPlayers(int __row, int __col) {
+	int _player_number = 1;
+	std::vector<int> _result_vec;
+	for (auto& p : *vec) {
+		Vertex4f _v = p.getPosInRowsCols();
+		if ((_v.x == __row && _v.z == __col) ||
+			(_v.x == __row && _v.t == __col) ||
+			(_v.y == __row && _v.z == __col) ||
+			(_v.y == __row && _v.t == __col)) {
+			_result_vec.push_back(_player_number);
+			++_player_number;
+		}
+	}
+
+	return _result_vec;
+}
+
+void PlayerManager::removePlayer(int __i) {
+	assert(__i > 0 && __i <= activePlayers.size());
+	activePlayers[__i - 1] = false;
 }
 
 /*

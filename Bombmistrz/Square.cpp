@@ -71,6 +71,9 @@ Square::Square(Vertex2f __xy1, float __side, Vertex3f __col, uint __w, uint __h)
 	xy4.x = xy1.x;
 	xy4.y = xy3.y;
 
+	side_h = (side / __h) * 2.0f;
+	side_w = (side / __w) * 2.0f;
+
 	setTexture();
 }
 
@@ -86,5 +89,16 @@ std::vector<float> Square::giveFloatVec() {
 		xy2.x, xy2.y, color.x, color.y, color.z, texY.x, texY.y,
 		xy3.x, xy3.y, color.x, color.y, color.z, texZ.x, texZ.y,
 		xy4.x, xy4.y, color.x, color.y, color.z, texT.x, texT.y
+	};
+}
+
+std::vector<float> Square::giveEmptyFloatVec() {
+	return
+		std::vector<float> {
+
+			.0f, .0f, .0f, .0f, .0f, .0f, .0f,
+			.0f, .0f, .0f, .0f, .0f, .0f, .0f,
+			.0f, .0f, .0f, .0f, .0f, .0f, .0f,
+			.0f, .0f, .0f, .0f, .0f, .0f, .0f,
 	};
 }

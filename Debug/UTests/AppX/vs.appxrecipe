@@ -23,11 +23,11 @@
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.dll">
       <PackagePath>UTests.dll</PackagePath>
-      <Modified>2014-12-01T19:27:35.502</Modified>
+      <Modified>2014-12-03T14:41:16.651</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.pdb">
       <PackagePath>UTests.pdb</PackagePath>
-      <Modified>2014-12-01T19:27:35.652</Modified>
+      <Modified>2014-12-03T14:41:16.650</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\UTests\UTests.winmd">
       <PackagePath>UTests.winmd</PackagePath>
