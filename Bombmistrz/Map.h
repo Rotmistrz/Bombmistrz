@@ -189,7 +189,7 @@ public:
 	* arg1: wiersz
 	* arg2: kolumna
 	*/
-	void removeElement(uint, uint);
+	bool removeElement(uint, uint);
 
 	/*
 	* funkcja stworzona do przegladania vectora vec, ale bez posredniego dostepu do niego w klasie.

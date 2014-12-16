@@ -1,42 +1,39 @@
-﻿Build started 2014-12-15 21:31:24.
+﻿Build started 2014-12-16 19:48:53.
      1>Project "C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\Bombmistrz.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Bomb.cpp BombManager.cpp Game.cpp Player.cpp PlayerManager.cpp main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IC:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Bomb.cpp BombManager.cpp Game.cpp main.cpp
          Bomb.cpp
      1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\map.h(201): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(159): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(160): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(161): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(162): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(165): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(166): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(167): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(168): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
      1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\playermanager.h(64): warning C4018: '<=' : signed/unsigned mismatch
          Generating Code...
          Compiling...
          main.cpp
      1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\map.h(201): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(159): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(160): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(161): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(162): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(165): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(166): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(167): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(168): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
      1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\playermanager.h(64): warning C4018: '<=' : signed/unsigned mismatch
      1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\main.cpp(51): warning C4244: 'initializing' : conversion from 'uint' to 'float', possible loss of data
-         PlayerManager.cpp
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\map.h(201): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(159): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(160): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(161): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(162): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\playermanager.h(64): warning C4018: '<=' : signed/unsigned mismatch
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\playermanager.cpp(76): warning C4018: '<=' : signed/unsigned mismatch
-         Player.cpp
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\map.h(201): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(159): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(160): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(161): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(162): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
-         Generating Code...
-         Skipping... (no relevant changes detected)
          Game.cpp
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\map.h(201): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(165): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(166): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(167): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(168): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\playermanager.h(64): warning C4018: '<=' : signed/unsigned mismatch
          BombManager.cpp
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\map.h(201): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(165): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(166): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(167): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\player.h(168): warning C4244: '=' : conversion from 'uint' to 'float', possible loss of data
+     1>c:\users\mrlukashem\documents\github\bombmistrz\bombmistrz\playermanager.h(64): warning C4018: '<=' : signed/unsigned mismatch
+         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\Bombmistrz.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Bombmistrz\sfml\lib opengl32.lib glew32.lib "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\Bombmistrz.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\MrLukashem\Documents\GitHub\Bombmistrz\Debug\Bombmistrz.lib" /MACHINE:X86 Debug\Bomb.obj
          Debug\BombManager.obj
@@ -52,4 +49,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:08.03
+Time Elapsed 00:00:09.87

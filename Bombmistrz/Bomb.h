@@ -49,10 +49,28 @@ public:
 			int _right_edge = static_cast<int>(_col) + static_cast<int>(power);
 			int _up_edge = static_cast<int>(_row) + static_cast<int>(power);
 			int _down_edge = static_cast<int>(_row) - static_cast<int>(power);
-
+/*
 			for (int i = _left_edge; i <= _right_edge; i++) {
 				map->removeElement(_row, i);
-				//if playermanager->isPlayer(i...j[player])(row,col);
+				auto _players_in_area = pm->isPlayers(_row, i);
+				if (_players_in_area.size() != 0) {
+					for (auto i_ : _players_in_area) {
+						pm->removePlayer(i_);
+					}
+				}
+			}*/
+
+			//zmienna ktora wykrywa, czy juz cegielka stanela na drodze ognia
+			//jezeli tak to ogien nie moze byc dalej prowadzony
+			bool _removed = false;
+			//od srodka do lewego konca zasiegu
+			for (int i = _col; i >= _left_edge; i--) {
+				if (!_removed){
+					if (map->removeElement(_row, i)) {
+						_removed = true;
+					}
+				}
+				
 				auto _players_in_area = pm->isPlayers(_row, i);
 				if (_players_in_area.size() != 0) {
 					for (auto i_ : _players_in_area) {
@@ -60,6 +78,60 @@ public:
 					}
 				}
 			}
+			_removed = false;
+			//od srodka do prawego konca zasiegu
+			for (int i = _col; i <= _right_edge; i++) {
+				if (!_removed){
+					if (map->removeElement(_row, i)){
+						_removed = true;
+					}
+				}
+
+				auto _players_in_area = pm->isPlayers(_row, i);
+				if (_players_in_area.size() != 0) {
+					for (auto i_ : _players_in_area) {
+						pm->removePlayer(i_);
+					}
+				}
+			}
+			_removed = false;
+
+
+			//od srodka do dolnego konca zasiegu
+			for (int i = _row; i >= _down_edge; i--) {
+				if (!_removed) {
+					if (map->removeElement(i, _col)) {
+						_removed = true;
+					}
+				}
+
+				auto _players_in_area = pm->isPlayers(i, _col);
+				if (_players_in_area.size() != 0) {
+					for (auto i_ : _players_in_area) {
+						pm->removePlayer(i_);
+					}
+				}
+			}
+			_removed = false;
+
+			//od srodka do gornego konca zasiegu
+			for (int i = _row; i <= _up_edge; i++) {
+				if (!_removed) {
+					if (map->removeElement(i, _col)) {
+						_removed = true;
+					}
+				}
+
+				auto _players_in_area = pm->isPlayers(i, _col);
+				if (_players_in_area.size() != 0) {
+					for (auto i_ : _players_in_area) {
+						pm->removePlayer(i_);
+					}
+				}
+			}
+			_removed = false;
+
+/*
 			for (int i = _down_edge; i <= _up_edge; i++) {
 				map->removeElement(i, _col);
 				auto _players_in_area = pm->isPlayers(i, _col);
@@ -68,7 +140,7 @@ public:
 						pm->removePlayer(i_);
 					}
 				}
-			}
+			}*/
 
 			reset();
 			return true;

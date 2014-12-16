@@ -126,12 +126,16 @@ ptrVec2dChar Map::loadMapFromFile(const std::string& __str) {
 	return _resultVec;
 }
 
-void Map::removeElement(uint __row, uint __col) {
+bool Map::removeElement(uint __row, uint __col) {
 	int _index = numberElementsInRow * __row + __col;
 	if (_index >= vec.size())
-		return;
+		return false;
+
+	if (vec[numberElementsInRow * __row + __col] == nullptr)
+		return false;
 
 	vec[numberElementsInRow * __row + __col].reset();
+	return true;
 }
 
 /*
